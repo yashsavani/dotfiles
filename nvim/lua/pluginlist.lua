@@ -68,11 +68,11 @@ return packer.startup(function()
         requires = 'nvim-lua/plenary.nvim',
         config = function() require("gitsigns").setup() end
     }
-    use {
-        'TimUntersberger/neogit',
-        requires = 'nvim-lua/plenary.nvim',
-        config = function() require("neogit").setup() end
-    }
+    -- use {
+    --     'TimUntersberger/neogit',
+    --     requires = 'nvim-lua/plenary.nvim',
+    --     config = function() require("neogit").setup() end
+    -- }
 
     -- Terminal
     use {
