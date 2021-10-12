@@ -128,13 +128,13 @@ map("n", "<Leader>s", [[:w<CR>]], noremap_silent)
 map("n", "<Leader>q", [[:q<CR>]], noremap_silent)
 map("n", "<Leader>x", [[:close<CR>]], noremap_silent)
 
--- Emacs-like sol and eol.
+-- Emacs-like
 map("i", "<C-e>", [[<Esc>A]], noremap_silent)
 map("i", "<C-a>", [[<Esc>I]], noremap_silent)
-map("i", "<M-f>", [[<S-Right>]], noremap_silent)
-map("i", "<M-b>", [[<S-Left>]], noremap_silent)
-map("i", "<M-p>", [[<Up>]], noremap_silent)
-map("i", "<M-n>", [[<Down>]], noremap_silent)
+map("i", "<C-f>", [[<S-Right>]], noremap_silent)
+map("i", "<C-b>", [[<S-Left>]], noremap_silent)
+map("i", "<C-p>", [[<Up>]], noremap_silent)
+map("i", "<C-n>", [[<Down>]], noremap_silent)
 
 -- nvim-tree keymaps.
 map("n", "<C-n>", [[:lua require("nvim-tree").toggle()<CR>]], noremap_silent)
@@ -150,8 +150,8 @@ map("n", "<Leader>gg", [[:lua require("neogit").open({ kind = "vsplit" })<cr>]],
 map("n", "<Leader>gc", [[:lua require("neogit").open({ "commit" })<cr>]], noremap_silent)
 
 -- Spelling
-map("i", "<C-f>", [[<C-g>u<Esc>[s1z=`]a<C-g>u]], noremap_silent)
-map("n", "<C-f>", [[[s1z=<C-o>]], noremap_silent)
+map("i", "<C-s>", [[<C-g>u<Esc>[s1z=`]a<C-g>u]], noremap_silent)
+map("n", "<C-s>", [[[s1z=<C-o>]], noremap_silent)
 
 -- Diagnostic keymaps.
 map("n", "<Leader>dt", [[:TroubleToggle<CR>]], noremap_silent)
