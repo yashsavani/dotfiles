@@ -81,6 +81,19 @@ local lua_settings = {
   },
 }
 
+local latex_settings = {
+    texlab = {
+        build = {
+            onSave = true,
+            forwardSearchAfter = false
+        },
+        forwardSearch = {
+            executable = "/Applications/Skim.app/Contents/SharedSupport/displayline",
+            args =  {"%l", "%p", "%f"}
+        }
+    }
+}
+
 -- config that activates keymaps and enables snippet support
 local function make_config()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -102,6 +115,8 @@ local function setup_servers()
 
     if server == "lua" then
         config.settings = lua_settings
+    elseif server == "latex" then
+        config.settings = latex_settings
     end
 
     require'lspconfig'[server].setup(config)

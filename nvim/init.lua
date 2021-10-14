@@ -22,6 +22,10 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.g.python3_host_prog = "/usr/local/anaconda3/bin/python"
 
+vim.g.minimap_width = 10
+vim.g.minimap_auto_start = 1
+vim.g.minimap_auto_start_win_enter = 1
+
 opt("o", "termguicolors", true) -- set term gui colors most terminals support this.
 opt("o", "background", "dark") -- Dark Background
 vim.cmd [[colorscheme onedark]]
@@ -131,8 +135,8 @@ map("n", "<Leader>x", [[:close<CR>]], noremap_silent)
 -- Emacs-like
 map("i", "<C-e>", [[<Esc>A]], noremap_silent)
 map("i", "<C-a>", [[<Esc>I]], noremap_silent)
-map("i", "<C-f>", [[<S-Right>]], noremap_silent)
-map("i", "<C-b>", [[<S-Left>]], noremap_silent)
+map("i", "<C-f>", [[<Right>]], noremap_silent)
+map("i", "<C-b>", [[<Left>]], noremap_silent)
 map("i", "<C-p>", [[<Up>]], noremap_silent)
 map("i", "<C-n>", [[<Down>]], noremap_silent)
 
@@ -186,7 +190,8 @@ map("n", "<Leader>lsd", [[:Telescope lsp_document_symbols<CR>]], noremap_silent)
 map("n", "<Leader>lsw", [[:Telescope lsp_dynamic_workspace_symbols<CR>]], noremap_silent)
 
 -- Neoclip
-map("n", "<Leader>p", [[:lua require('telescope').extensions.neoclip.default()<CR>]], noremap_silent)
+-- map("n", "<Leader>p", [[:lua require('telescope').extensions.neoclip.default()<CR>]], noremap_silent)
+map("n", "<Leader>p", [["_dP]], noremap_silent)
 
 -- Autocommands
 vim.cmd "filetype plugin indent on"

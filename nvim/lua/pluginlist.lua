@@ -48,6 +48,7 @@ return packer.startup(function()
         run = ":TSUpdate"
     }
     use 'nvim-treesitter/nvim-treesitter-textobjects'
+    use 'nvim-treesitter/playground'
 
     -- Telescope
     use {
@@ -137,6 +138,10 @@ return packer.startup(function()
     use {
         'glacambre/firenvim',
         run = function() vim.fn['firenvim#install'](0) end 
+    }
+    use {
+        "wfxr/minimap.vim",
+        run = ':!cargo install --locked code-minimap'
     }
 
 end, { display = { border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" } } })
