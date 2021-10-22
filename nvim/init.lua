@@ -20,7 +20,11 @@ end
 vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-vim.g.python3_host_prog = "/usr/local/anaconda3/bin/python"
+if vim.env.CONDA_PREFIX then
+    vim.g.python3_host_prog = vim.env.CONDA_PREFIX .."/bin/python"
+else
+    vim.g.python3_host_prog = "/usr/local/anaconda3/bin/python"
+end
 
 vim.g.minimap_width = 10
 vim.g.minimap_auto_start = 1
@@ -39,6 +43,7 @@ opt("o", "fileencoding", "utf-8") -- Set encoding written to file.
 opt("o", "inccommand", "nosplit") -- Show effect of a command in realtime.
 opt("o", "hlsearch", true) -- Highlight search
 opt("w", "number", true) -- Line numbers.
+opt("w", "relativenumber", true) -- Relative line numbers.
 opt("o", "hidden", true) -- Allow background buffers.
 opt("o", "mouse", "a") -- Enable mouse.
 opt("o", "breakindent", true) -- Enable break indent
@@ -70,6 +75,10 @@ opt("o", "showtabline", 2) -- Always show tabs.
 opt("o", "timeoutlen", 500) -- Default is much longer at 1000ms.
 opt("o", "completeopt", "menu,menuone,noselect") -- To allow compe
 opt("o", "lazyredraw", true)
+opt("o", "foldmethod", "expr")
+opt("w", "foldexpr", "nvim_treesitter#foldexpr()")
+opt("w", "foldminlines", 10)
+
 
 -- KEY-MAPPINGS
 local noremap_silent = { noremap = true, silent = true }
