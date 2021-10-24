@@ -15,7 +15,7 @@ return packer.startup(function()
     -- LSP
     use 'neovim/nvim-lspconfig'
     use {
-        'kabouzeid/nvim-lspinstall',
+        'williamboman/nvim-lsp-installer',
         config = function() require"plugins.lspconfig" end
     }
     use {
@@ -132,10 +132,10 @@ return packer.startup(function()
          }
       end,
     }
-    use {
-        "wfxr/minimap.vim",
-        run = ':!cargo install --locked code-minimap'
-    }
+    -- use {
+    --     "wfxr/minimap.vim",
+    --     run = ':!cargo install --locked code-minimap'
+    -- }
     use "monaqa/dial.nvim"
     use {
       'chipsenkbeil/distant.nvim',

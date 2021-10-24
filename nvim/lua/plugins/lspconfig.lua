@@ -57,31 +57,7 @@ local on_attach = function(client, bufnum)
   end
 end
 
--- Configure lua language server for neovim development.
-local lua_settings = {
-  Lua = {
-    runtime = {
-      -- LuaJIT in the case of Neovim
-      version = "LuaJIT",
-      path = vim.split(package.path, ";"),
-    },
-    diagnostics = {
-      -- Get the language server to recognize the `vim` global
-      globals = { "vim" },
-    },
-    workspace = {
-      -- Make the server aware of Neovim runtime files
-      library = {
-        [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-        [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-        maxPreload = 10000,
-      },
-    },
-    telemetry = { enable = false },
-  },
-}
-
-local latex_settings = {
+local texlab_settings = {
     texlab = {
         build = {
             onSave = true,
@@ -94,39 +70,48 @@ local latex_settings = {
     }
 }
 
--- config that activates keymaps and enables snippet support
-local function make_config()
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities.textDocument.completion.completionItem.snippetSupport = true
-  capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
-  return {
-    -- enable snippet support
-    capabilities = capabilities,
-    -- map buffer local keybindings when the language server attaches
-    on_attach = on_attach,
-  }
-end
+local lsp_installer = require("nvim-lsp-installer")
+local servers = {
+    "sumneko_lua",
+    "pyright",
+    "texlab",
+}
 
-local function setup_servers()
-  require'lspinstall'.setup()
-  local servers = require'lspinstall'.installed_servers()
-  for _, server in pairs(servers) do
-    local config = make_config()
-
-    if server == "lua" then
-        config.settings = lua_settings
-    elseif server == "latex" then
-        config.settings = latex_settings
+for _, name in pairs(servers) do
+    local ok, server = lsp_installer.get_server(name)
+    -- Check that the server is supported in nvim-lsp-installer
+    if ok then
+        if not server:is_installed() then
+            print("Installing " .. name)
+            server:install()
+        end
     end
-
-    require'lspconfig'[server].setup(config)
-  end
 end
 
-setup_servers()
+-- Provide settings first!
+lsp_installer.settings {
+    ui = {
+        icons = {
+            server_installed = "✓",
+            server_pending = "➜",
+            server_uninstalled = "✗"
+        }
+    }
+}
 
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-require'lspinstall'.post_install_hook = function ()
-  setup_servers() -- reload installed servers
-  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
-end
+lsp_installer.on_server_ready(function(server)
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
+    capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+    local opts = {
+        on_attach = on_attach,
+        capabilities = capabilities
+    }
+    if server.name == "texlab" then
+        opts.settings = texlab_settings
+    end
+    -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
+    server:setup(opts)
+    vim.cmd [[ do User LspAttachBuffers ]]
+end)
+

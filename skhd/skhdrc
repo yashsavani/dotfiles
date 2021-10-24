@@ -84,12 +84,16 @@ ctrl + alt + cmd - r : \
 alt - w : yabai -m window $(yabai -m query --windows --window | jq -re ".id") --close || yabai -m window --focus next
 alt - t : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
 alt - b : /Applications/Brave\ Browser.app/Contents/MacOS/Brave\ Browser gmail.com
-lctrl + alt - t : yabai -m space --create ; \
+lctrl + alt - t : curr_display=$(yabai -m query --displays --display | jq -re ".index"); \
+                  yabai -m space --create ; \
                   yabai -m space --focus $(yabai -m query --displays --display | jq -r '.spaces[-1]') ;\
-                  Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
-lctrl + alt - b : yabai -m space --create ; \
+                  Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~ ;\
+                  yabai -m window --display $curr_display
+lctrl + alt - b : curr_display=$(yabai -m query -displays --display); \
+                  yabai -m space --create ; \
                   yabai -m space --focus $(yabai -m query --displays --display | jq -r '.spaces[-1]') ;\
-                  /Applications/Brave\ Browser.app/Contents/MacOS/Brave\ Browser
+                  /Applications/Brave\ Browser.app/Contents/MacOS/Brave\ Browser ;\
+                  yabai -m window --display $curr_display
 
 # Navigation
 alt - h : yabai -m window --focus west
