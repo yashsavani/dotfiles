@@ -26,14 +26,15 @@ else
     vim.g.python3_host_prog = "/usr/local/anaconda3/bin/python"
 end
 
-vim.g.minimap_width = 10
-vim.g.minimap_auto_start = 1
-vim.g.minimap_auto_start_win_enter = 1
-
 opt("o", "termguicolors", true) -- set term gui colors most terminals support this.
 opt("o", "background", "dark") -- Dark Background
 vim.cmd [[colorscheme onedark]]
 vim.g.onedark_terminal_italics = 2
+
+vim.g.vimwiki_list = { { path = "~/dev/brain", syntax = "markdown", ext = ".md" } }
+vim.g.vimwiki_ext2syntax = { [".md"] = "markdown", [".markdown"] = "markdown", [".mdown"] = "markdown" }
+vim.g.vimwiki_markdown_link_ext = 1
+vim.g.vimwiki_table_mappings = 0
 
 vim.o.shortmess = vim.o.shortmess .. "c"
 vim.o.formatoptions = vim.o.formatoptions:gsub("cro", "") -- Stop extending comments
@@ -75,10 +76,9 @@ opt("o", "showtabline", 2) -- Always show tabs.
 opt("o", "timeoutlen", 500) -- Default is much longer at 1000ms.
 opt("o", "completeopt", "menu,menuone,noselect") -- To allow compe
 opt("o", "lazyredraw", true)
-opt("o", "foldmethod", "expr")
-opt("w", "foldexpr", "nvim_treesitter#foldexpr()")
+-- opt("o", "foldmethod", "expr")
+-- opt("w", "foldexpr", "nvim_treesitter#foldexpr()")
 opt("w", "foldminlines", 10)
-
 
 -- KEY-MAPPINGS
 local noremap_silent = { noremap = true, silent = true }
@@ -101,10 +101,11 @@ vim.api.nvim_exec(
 )
 
 -- Y yank until the end of line  (note: this is now a default on master)
-vim.api.nvim_set_keymap('n', 'Y', 'y$', { noremap = true })
+map("n", "Y", [[y$]], noremap_silent)
 
 -- Open this file fast
 map("n", "<Leader>v", [[:e $MYVIMRC<cr>]], noremap_silent)
+map("n", "<Leader>z", [[:e ~/.zshrc<cr>]], noremap_silent)
 
 -- Toggle highlights.
 map("n", "<Leader>h", [[:set hlsearch!<CR>]], noremap_silent)
@@ -122,6 +123,9 @@ map("n", "<C-k>", [[<C-w>k]], noremap_silent)
 -- Better indentation.
 map("v", "<", [[<gv]], noremap_silent)
 map("v", ">", [[>gv]], noremap_silent)
+
+-- Paste without replacing clipboard
+map("n", "<Leader>p", [["_dP]], noremap_silent)
 
 -- Switch buffer.
 map("n", "<Leader><TAB>", [[:BufferNext<CR>]], noremap_silent) -- TAB in normal mode will move to the next buffer.
@@ -166,7 +170,7 @@ map("n", "<Leader>gc", [[:lua require("neogit").open({ "commit" })<cr>]], norema
 map("i", "<C-s>", [[<C-g>u<Esc>[s1z=`]a<C-g>u]], noremap_silent)
 map("n", "<C-s>", [[[s1z=<C-o>]], noremap_silent)
 
--- Diagnostic keymaps.
+-- Trouble keymaps.
 map("n", "<Leader>dt", [[:TroubleToggle<CR>]], noremap_silent)
 map("n", "<Leader>dw", [[:TroubleToggle lsp_workspace_diagnostics<CR>]], noremap_silent)
 map("n", "<Leader>dd", [[:TroubleToggle lsp_document_diagnostics<CR>]], noremap_silent)
@@ -176,14 +180,14 @@ map("n", "<Leader>dr", [[:TroubleToggle lsp_references<CR>]], noremap_silent)
 map("n", "<Leader>dx", [[:cclose<CR>]], noremap_silent)
 map("n", "gR", [[:TroubleToggle lsp_references<CR>]], noremap_silent)
 
+-- LSPSaga keymaps.
 map("n", "<Leader>e", [[:lua require"lspsaga.diagnostic".show_line_diagnostics()<CR>]], noremap_silent)
 map("n", "[e", [[:lua require"lspsaga.diagnostic".lsp_jump_diagnostic_prev()<CR>]], noremap_silent)
 map("n", "]e", [[:lua require"lspsaga.diagnostic".lsp_jump_diagnostic_next()<CR>]], noremap_silent)
 
 -- LSP keymaps.
 map("n", "<Leader>la", [[:lua require("lspsaga.codeaction").code_action()<CR>]], noremap_silent)
-map("v", "<Leader>la", [[:<C-U>lua require("lspsaga.codeaction").range_code_action()<CR>]],
-    noremap_silent)
+map("v", "<Leader>la", [[:<C-U>lua require("lspsaga.codeaction").range_code_action()<CR>]], noremap_silent)
 map("n", "<Leader>ld", [[:Telescope lsp_document_diagnostics<CR>]], noremap_silent)
 map("n", "<Leader>lw", [[:Telescope lsp_workspace_diagnostics<CR>]], noremap_silent)
 map("n", "<Leader>lf", [[:lua vim.lsp.buf.formatting()<CR>]], noremap_silent)
@@ -198,15 +202,22 @@ map("n", "<Leader>lx", [[:cclose<CR>]], noremap_silent)
 map("n", "<Leader>lsd", [[:Telescope lsp_document_symbols<CR>]], noremap_silent)
 map("n", "<Leader>lsw", [[:Telescope lsp_dynamic_workspace_symbols<CR>]], noremap_silent)
 
--- Neoclip
--- map("n", "<Leader>p", [[:lua require('telescope').extensions.neoclip.default()<CR>]], noremap_silent)
-map("n", "<Leader>p", [["_dP]], noremap_silent)
+-- Nvim IPy
+vim.api.nvim_exec([[
+  command! -nargs=0 RunQtConsole call jobstart("jupyter qtconsole --JupyterWidget.include_other_output=True")
+  let g:ipy_celldef = '^##' " regex for cell start and end
+
+  nmap <silent> <leader>jqt :RunQtConsole<Enter>
+  nmap <silent> <leader>jk :IPython<Space>--existing<Space>--no-window<Enter>
+  nmap <silent> <leader>jc <Plug>(IPy-RunCell)
+  nmap <silent> <leader>ja <Plug>(IPy-RunAll)
+]], false)
 
 -- Autocommands
 vim.cmd "filetype plugin indent on"
 vim.api.nvim_exec([[
   au BufEnter term://* setlocal nonumber | setlocal norelativenumber | set laststatus=0
   au BufRead,BufNewFile *.lua set formatoptions-=cro
-  au Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+  au Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4 foldmethod=indent
   au FileType gitcommit setlocal spell
 ]], false)

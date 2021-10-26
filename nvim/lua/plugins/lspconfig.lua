@@ -25,7 +25,7 @@ local on_attach = function(client, bufnum)
   vim.cmd [[command! Format execute 'lua vim.lsp.buf.formatting()']]
 
   -- vim already has builtin docs
-  -- if vim.bo.ft ~= "vim" then buf_set_keymap("n", "K", [[<Cmd>lua vim.lsp.buf.hover()<CR>]], noremap_silent) end
+  if vim.bo.ft ~= "vim" then buf_set_keymap("n", "K", [[<Cmd>lua vim.lsp.buf.hover()<CR>]], noremap_silent) end
 
   -- Set autocommands conditional on server_capabilities
   if client.resolved_capabilities.document_highlight then

@@ -29,12 +29,13 @@ return packer.startup(function()
     }
 
     -- Autocomplete
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/cmp-buffer'
     use {
         'hrsh7th/nvim-cmp',
-        config = function() require"plugins.cmp" end
+        config = function() require"plugins.cmp_config" end
     }
+    use { "hrsh7th/cmp-path", after = "nvim-cmp" }
+    use { "hrsh7th/cmp-buffer", after = "nvim-cmp" }
+    use { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" }
 
     -- Snippets
     use "SirVer/ultisnips"
@@ -116,39 +117,21 @@ return packer.startup(function()
         'romgrk/barbar.nvim',
         requires = {'kyazdani42/nvim-web-devicons'}
     }
-    use 'kevinhwang91/nvim-bqf'
+    use {'kevinhwang91/nvim-bqf', ft="qf"}
     use {
         'hoob3rt/lualine.nvim',
         requires = {'kyazdani42/nvim-web-devicons', opt = true},
         config = function() require"lualine".setup{options={theme = "onedark"}}end
-    }
-    use {
-      "AckslD/nvim-neoclip.lua",
-      requires = {'tami5/sqlite.lua', module = 'sqlite'},
-      config = function()
-        require('neoclip').setup{
-            enable_persistant_history = true,
-            default_register = {'"', '+', '*'},
-         }
-      end,
     }
     -- use {
     --     "wfxr/minimap.vim",
     --     run = ':!cargo install --locked code-minimap'
     -- }
     use "monaqa/dial.nvim"
-    use {
-      'chipsenkbeil/distant.nvim',
-      config = function()
-        require('distant').setup {
-          -- Applies Chip's personal settings to every machine you connect to
-          --
-          -- 1. Ensures that distant servers terminate with no connections
-          -- 2. Provides navigation bindings for remote directories
-          -- 3. Provides keybinding to jump into a remote file's parent directory
-          ['*'] = require('distant.settings').chip_default()
-        }
-      end
-    }
+    use "vimwiki/vimwiki"
+    use "jbyuki/nabla.nvim"
+    use "bfredl/nvim-ipy"
+    -- use "lervag/vimtex"
+    use "simrat39/symbols-outline.nvim"
 
 end, { display = { border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" } } })
