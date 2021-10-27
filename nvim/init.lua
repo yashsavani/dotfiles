@@ -180,6 +180,10 @@ map("n", "<Leader>dr", [[:TroubleToggle lsp_references<CR>]], noremap_silent)
 map("n", "<Leader>dx", [[:cclose<CR>]], noremap_silent)
 map("n", "gR", [[:TroubleToggle lsp_references<CR>]], noremap_silent)
 
+-- QuickFix list
+map("n", "<C-j>", [[:cnext<CR>]], noremap_silent)
+map("n", "<C-k>", [[:cprev<CR>]], noremap_silent)
+
 -- LSPSaga keymaps.
 map("n", "<Leader>e", [[:lua require"lspsaga.diagnostic".show_line_diagnostics()<CR>]], noremap_silent)
 map("n", "[e", [[:lua require"lspsaga.diagnostic".lsp_jump_diagnostic_prev()<CR>]], noremap_silent)
@@ -206,6 +210,7 @@ map("n", "<Leader>lsw", [[:Telescope lsp_dynamic_workspace_symbols<CR>]], norema
 vim.api.nvim_exec([[
   command! -nargs=0 RunQtConsole call jobstart("jupyter qtconsole --JupyterWidget.include_other_output=True")
   let g:ipy_celldef = '^##' " regex for cell start and end
+  let g:nvim_ipy_perform_mappings = 0
 
   nmap <silent> <leader>jqt :RunQtConsole<Enter>
   nmap <silent> <leader>jk :IPython<Space>--existing<Space>--no-window<Enter>
