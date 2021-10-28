@@ -161,6 +161,9 @@ map("n", "<Leader><Space>", [[<cmd>lua require('telescope.builtin').buffers()<cr
 map("n", "<Leader>ff", [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<cr>]], noremap_silent)
 map("n", "<Leader>fg", [[<cmd>lua require('telescope.builtin').live_grep()<cr>]], noremap_silent)
 map("n", "<Leader>fh", [[<cmd>lua require('telescope.builtin').help_tags()<cr>]], noremap_silent)
+map("n", "<Leader>fo", [[<cmd>lua require('telescope.builtin').oldfiles()<cr>]], noremap_silent)
+map("n", "<Leader>fs", [[<cmd>lua require('telescope.builtin').spell_suggest()<cr>]], noremap_silent)
+map("n", "<Leader>fq", [[<cmd>lua require('telescope.builtin').quickfix()<cr>]], noremap_silent)
 
 -- Neogit keymaps.
 map("n", "<Leader>gg", [[:lua require("neogit").open({ kind = "vsplit" })<cr>]], noremap_silent)
