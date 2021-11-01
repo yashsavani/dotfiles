@@ -158,7 +158,8 @@ map("n", "<C-n>", [[:lua require("nvim-tree").toggle()<CR>]], noremap_silent)
 
 -- Telescope keymaps.
 map("n", "<Leader><Space>", [[<cmd>lua require('telescope.builtin').buffers()<cr>]], noremap_silent)
-map("n", "<Leader>ff", [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<cr>]], noremap_silent)
+-- map("n", "<Leader>ff", [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<cr>]], noremap_silent)
+map("n", "<Leader>ff", [[<cmd>lua require('telescope').extensions.frecency.frecency()<cr>]], noremap_silent)
 map("n", "<Leader>fg", [[<cmd>lua require('telescope.builtin').live_grep()<cr>]], noremap_silent)
 map("n", "<Leader>fh", [[<cmd>lua require('telescope.builtin').help_tags()<cr>]], noremap_silent)
 map("n", "<Leader>fo", [[<cmd>lua require('telescope.builtin').oldfiles()<cr>]], noremap_silent)
