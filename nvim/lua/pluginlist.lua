@@ -84,7 +84,13 @@ return packer.startup(function()
     -- Terminal
     use {
         "akinsho/toggleterm.nvim",
-        config = function() require"toggleterm".setup{open_mapping = [[<C-\>]]} end
+        config = function()
+            require"toggleterm".setup{open_mapping = [[<C-\>]]}
+            local Terminal  = require('toggleterm.terminal').Terminal
+            local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = 'float' })
+            function _lazygit_toggle() lazygit:toggle() end
+            vim.api.nvim_set_keymap("n", "<leader>lg", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
+        end
     }
 
     -- Miscellaneous
@@ -138,5 +144,13 @@ return packer.startup(function()
     use "bfredl/nvim-ipy"
     -- use "lervag/vimtex"
     use "simrat39/symbols-outline.nvim"
+    -- use {
+    --     'dvdsk/prosesitter',
+    --     config = function()
+    --         require("telescope").load_extension("prosesitter")
+    --         require("prosesitter"):setup()
+    --     end
+    -- }
+    use 'da-h/AirLatex.vim'
 
 end, { display = { border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" } } })

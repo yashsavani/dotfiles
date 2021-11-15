@@ -49,7 +49,7 @@ export ARCHFLAGS="-arch x86_64"
 alias ls="exa --icons"
 alias ll="exa -lh --git --group-directories-first --icons"
 alias vim="nvim --startuptime /tmp/nvim-startuptime"
-alias updateall="omz update && brew update && brew upgrade && brew cleanup && antigen update&& conda update --all -y && pip3 install -U pip setuptools wheel"
+alias updateall="omz update && brew update && brew upgrade && brew cleanup && antigen update&& conda update --all -y && pip3 install -U pip3 setuptools wheel"
 alias lg="lazygit"
 alias slocus="kitty +kitten ssh locus"
 alias sgpu="kitty +kitten ssh localgpu"
@@ -80,3 +80,5 @@ bindkey -e
 
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
+
+if [ -e /Users/yashsavani/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/yashsavani/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

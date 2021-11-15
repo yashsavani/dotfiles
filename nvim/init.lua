@@ -31,10 +31,16 @@ opt("o", "background", "dark") -- Dark Background
 vim.cmd [[colorscheme onedark]]
 vim.g.onedark_terminal_italics = 2
 
+vim.g.tex_flavor = "latex"
+
 vim.g.vimwiki_list = { { path = "~/dev/brain", syntax = "markdown", ext = ".md" } }
 vim.g.vimwiki_ext2syntax = { [".md"] = "markdown", [".markdown"] = "markdown", [".mdown"] = "markdown" }
 vim.g.vimwiki_markdown_link_ext = 1
 vim.g.vimwiki_table_mappings = 0
+vim.g.vimwiki_global_ext = 0
+
+-- vim.g.AirLatexUsername="ysavani@cs.cmu.edu"
+vim.g.AirLatexUsername="cookies:overleaf_session2=s%3ABJjHb1mmfKKGGxoEkUCR6LFvF-0RUTkI.KbIRRJnuIFOSG1lSz3ZxVHYAN8LbdkYKG0fwkZWKyag"
 
 vim.o.shortmess = vim.o.shortmess .. "c"
 vim.o.formatoptions = vim.o.formatoptions:gsub("cro", "") -- Stop extending comments
@@ -79,6 +85,7 @@ opt("o", "lazyredraw", true)
 -- opt("o", "foldmethod", "expr")
 -- opt("w", "foldexpr", "nvim_treesitter#foldexpr()")
 opt("w", "foldminlines", 10)
+opt("w", "linebreak", true)
 
 -- KEY-MAPPINGS
 local noremap_silent = { noremap = true, silent = true }
@@ -158,8 +165,8 @@ map("n", "<C-n>", [[:lua require("nvim-tree").toggle()<CR>]], noremap_silent)
 
 -- Telescope keymaps.
 map("n", "<Leader><Space>", [[<cmd>lua require('telescope.builtin').buffers()<cr>]], noremap_silent)
--- map("n", "<Leader>ff", [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<cr>]], noremap_silent)
-map("n", "<Leader>ff", [[<cmd>lua require('telescope').extensions.frecency.frecency()<cr>]], noremap_silent)
+map("n", "<Leader>ff", [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<cr>]], noremap_silent)
+map("n", "<Leader>fr", [[<cmd>lua require('telescope').extensions.frecency.frecency()<cr>]], noremap_silent)
 map("n", "<Leader>fg", [[<cmd>lua require('telescope.builtin').live_grep()<cr>]], noremap_silent)
 map("n", "<Leader>fh", [[<cmd>lua require('telescope.builtin').help_tags()<cr>]], noremap_silent)
 map("n", "<Leader>fo", [[<cmd>lua require('telescope.builtin').oldfiles()<cr>]], noremap_silent)
