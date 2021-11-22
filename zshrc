@@ -56,6 +56,7 @@ alias sgpu="kitty +kitten ssh localgpu"
 alias icat="kitty +kitten icat"
 alias vconf="(cd ~/.config && vim)"
 alias sshfslocus="umount -f ~/dev/locus || sshfs -o kernel_cache,cache=yes,compression=no ysavani@locus.cs.cmu.edu:/home/ysavani ~/dev/locus"
+alias setuptex="(find ~/.config/latex ! -name main.tex ! -name latex | xargs -I{} ln -sf {} .) && cp $HOME/.config/latex/main.tex ."
 
 
 # >>> conda initialize >>>
