@@ -27,4 +27,4 @@ open:
 	# evince document.pdf &
 
 clean:
-	rm -f *.out *.pdf *.aux *.dvi *.log *.blg *.bbl *.tex-ee
+	rm -f *.out *.pdf *.aux *.dvi *.log *.blg *.bbl *.tex-ee *.fdb_latexmk *.fls *.synctex*
