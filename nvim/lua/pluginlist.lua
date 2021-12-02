@@ -152,5 +152,6 @@ return packer.startup(function()
     --     end
     -- }
     use 'da-h/AirLatex.vim'
+    use 'rhysd/vim-grammarous'
 
 end, { display = { border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" } } })

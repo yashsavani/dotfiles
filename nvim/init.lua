@@ -23,7 +23,7 @@ vim.g.maplocalleader = " "
 if vim.env.CONDA_PREFIX then
     vim.g.python3_host_prog = vim.env.CONDA_PREFIX .."/bin/python"
 else
-    vim.g.python3_host_prog = "/usr/local/anaconda3/bin/python"
+    vim.g.python3_host_prog = "/usr/local/Caskroom/miniconda/base/bin/python"
 end
 
 opt("o", "termguicolors", true) -- set term gui colors most terminals support this.
@@ -38,6 +38,9 @@ vim.g.vimwiki_ext2syntax = { [".md"] = "markdown", [".markdown"] = "markdown", [
 vim.g.vimwiki_markdown_link_ext = 1
 vim.g.vimwiki_table_mappings = 0
 vim.g.vimwiki_global_ext = 0
+
+vim.g['grammarous#use_location_list'] = 1
+vim.g['grammarous#show_first_error'] = 1
 
 -- vim.g.AirLatexUsername="ysavani@cs.cmu.edu"
 vim.g.AirLatexUsername="cookies:overleaf_session2=s%3ABJjHb1mmfKKGGxoEkUCR6LFvF-0RUTkI.KbIRRJnuIFOSG1lSz3ZxVHYAN8LbdkYKG0fwkZWKyag"
@@ -234,6 +237,6 @@ vim.cmd "filetype plugin indent on"
 vim.api.nvim_exec([[
   au BufEnter term://* setlocal nonumber | setlocal norelativenumber | set laststatus=0
   au BufRead,BufNewFile *.lua set formatoptions-=cro
-  au Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4 foldmethod=indent
+  au Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4 autoindent foldmethod=indent
   au FileType gitcommit setlocal spell
 ]], false)
