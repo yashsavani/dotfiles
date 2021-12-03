@@ -19,6 +19,8 @@ antigen theme romkatv/powerlevel10k
 
 antigen bundle git
 antigen bundle pip
+antigen bundle command-not-found
+antigen bundle docker
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-completions
@@ -47,16 +49,18 @@ export EDITOR='nvim'
 export ARCHFLAGS="-arch x86_64"
 
 alias ls="exa --icons"
-alias ll="exa -lh --git --group-directories-first --icons"
+alias ll="exa -lha --icons --group-directories-first --git"
 alias vim="nvim --startuptime /tmp/nvim-startuptime"
-alias updateall="omz update && brew update && brew upgrade && brew cleanup && antigen update&& conda update --all -y && pip3 install -U pip3 setuptools wheel"
+alias more="bat"
+alias updateall="omz update && brew update && brew upgrade && brew cleanup && antigen update && conda update --all -y && pip3 install -U pip3 setuptools wheel"
 alias lg="lazygit"
 alias slocus="kitty +kitten ssh locus"
 alias sgpu="kitty +kitten ssh localgpu"
 alias icat="kitty +kitten icat"
 alias vconf="(cd ~/.config && vim)"
 alias sshfslocus="umount -f ~/dev/locus || sshfs -o kernel_cache,cache=yes,compression=no ysavani@locus.cs.cmu.edu:/home/ysavani ~/dev/locus"
-alias setuptex="(find ~/.config/latex ! -name main.tex ! -name latex | xargs -I{} ln -sf {} .) && cp $HOME/.config/latex/main.tex ."
+# alias setuptex="(find ~/.config/latex ! -name main.tex ! -name latex | xargs -I{} ln -sf {} .) && cp $HOME/.config/latex/main.tex ."
+alias setuptex="cp $HOME/.config/latex/main.tex . && cp $HOME/.config/latex/Makefile ."
 
 
 # >>> conda initialize >>>
