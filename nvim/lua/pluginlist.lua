@@ -18,10 +18,10 @@ return packer.startup(function()
         'williamboman/nvim-lsp-installer',
         config = function() require"plugins.lspconfig" end
     }
-    use {
-        'glepnir/lspsaga.nvim',
-        config = function() require'lspsaga'.init_lsp_saga() end
-    }
+    -- use {
+    --     'glepnir/lspsaga.nvim',
+    --     config = function() require'lspsaga'.init_lsp_saga() end
+    -- }
     use {
         "folke/trouble.nvim",
         requires = "kyazdani42/nvim-web-devicons",

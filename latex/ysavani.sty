@@ -1,19 +1,23 @@
+\usepackage[letterpaper]{geometry}
 \usepackage{amsmath,amssymb,amsthm}
 
-\topmargin 0pt
+% \topmargin 0pt
 % \advance \topmargin by -\headheight
 % \advance \topmargin by -\headsep
-\textheight 8.9in
-\oddsidemargin 0pt
-\evensidemargin \oddsidemargin
-\marginparwidth 0.5in
-\textwidth 6.5in
-\parindent 0in
-\parskip 1.5ex
+% \textheight 9.in
+% \textwidth 5.5in
+\headheight 15pt
+% \headsep 25pt
+% \footskip 30pt
+% \oddsidemargin 0pt
+% \evensidemargin \oddsidemargin
+% \marginparwidth 0.5in
+% \parindent 0in
+% \parskip 1.5ex
 
 \usepackage[utf8]{inputenc} % allow utf-8 input
 \usepackage[T1]{fontenc}    % use 8-bit T1 fonts
-\usepackage{hyperref}       % hyperlinks
+\usepackage{hyperref}
 \usepackage{url}            % simple URL typesetting
 \usepackage{booktabs}       % professional-quality tables
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
@@ -40,9 +44,11 @@
 \usepackage{cancel}
 \usepackage{listings}
 
-\DeclareMathOperator*{\E}{\mathbb{E}}
-% \let\Pr\relax
-% \DeclareMathOperator*{\Pr}{\mathbb{P}}
+\usepackage{lmodern}
+\usepackage{bbold}
+\usepackage{unicode-math}
+\setmathfont{latinmodern-math.otf}
+\setmathfont[range=\setminus]{XITSMath-Regular.otf}
 
 \bibliographystyle{plainurl}
 \newfloat{Figure}{tbp}{loa}
@@ -63,8 +69,50 @@
     morekeywords     = with,
 }
 
-\newcommand{\eps}{\varepsilon}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\J}{\mathcal{J}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\dd}{\mathsf{d}}
+\newcommand{\DD}{\mathsf{D}}
 
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\Y}{\mathcal{Y}}
+
+\newcommand{\E}{\mathbb{E}}
+
+\newcommand{\LL}{\mathcal{L}}
+\newcommand{\JJ}{\mathcal{J}}
+\newcommand{\ZZ}{\mathbb{Z}}
+
+\newcommand{\xinit}{x_{\rm init}}
+\newcommand{\uinit}{u_{\rm init}}
+\newcommand{\ustar}{{u^\star}}
+\newcommand{\vstar}{{v^\star}}
+\newcommand{\sstar}{{s^\star}}
+\newcommand{\xstar}{{x^\star}}
+\newcommand{\ystar}{{y^\star}}
+\newcommand{\zstar}{{z^\star}}
+
+\newcommand{\CC}{\mathcal{C}}
+\newcommand{\K}{\mathcal{K}}
+
+\newcommand{\Res}{\mathcal{R}}
+
+\newcommand{\menge}[2]{\big\{{#1}~\big |~{#2}\big\}}
+
+\newcommand{\eg}{{\it e.g.}\xspace}
+\newcommand{\ie}{{\it i.e.}\xspace}
+
+\newcommand{\LQR}{\ensuremath{\mathrm{LQR}}}
+\newcommand{\MPC}{\ensuremath{\mathrm{MPC}}}
+
+\newcommand{\LML}{\ensuremath{\mathcal{L}}}
+\newcommand{\cvxpy}{\texttt{cvxpy}\xspace}
+\newcommand{\qpth}{\texttt{qpth}\xspace}
+
+\newcommand{\eps}{\varepsilon}
 \renewcommand\qedsymbol{$\blacksquare$}
 
 \newcommand{\problem}[1]{\section{#1}}		% Problem.
@@ -74,18 +122,15 @@
 \newcommand{\C}{\mathbb{C}}	               % Complex numbers.
 \newcommand{\N}{\mathbb{N}}                     % Positive integers.
 \newcommand{\Q}{\mathbb{Q}}                     % Rationals.
-\newcommand{\R}{\mathbb{R}}                     % Reals.
+% \newcommand{\R}{\mathbb{R}}                     % Reals.
 \newcommand{\Z}{\mathbb{Z}}  			 	% Integers.
-\newcommand{\LL}{\mathcal{L}}
+% \newcommand{\LL}{\mathcal{L}}
 
 \newcommand{\compl}[1]{\overline{#1}}	
 \renewcommand{\vec}[1]{\boldsymbol{#1}}
-\renewcommand{\exp}[1]{\textt{exp}\left({#1}\right)}
 
 \newcommand{\true}{\texttt{True}}
 \newcommand{\false}{\texttt{False}}
-\newcommand{\where}{\text{ where }}
-\newcommand{\st}{\text{ s.t. }}
 
 \newcommand{\pr}[1]{\text{\bf Pr}\normalfont\lbrack #1 \rbrack} %probability
 \newcommand{\ex}[1]{\mathbb{E}\normalfont\lbrack #1 \rbrack}%expectation
@@ -101,6 +146,28 @@
 \newcommand{\G}{\mathcal{G}}
 \newcommand{\tx}[1]{\text{#1}}
 \newcommand{\ttx}[1]{\texttt{#1}}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\diag}{diag}
+\DeclareMathOperator*{\tr}{tr}
+\DeclareMathOperator*{\maximize}{maximize}
+\DeclareMathOperator*{\minimize}{minimize}
+\DeclareMathOperator*{\st}{s.t.}
+\DeclareMathOperator*{\where}{where}
+\DeclareMathOperator*{\subjectto}{subject\;to}
+\DeclareMathOperator*{\vect}{vec}
+\DeclareMathOperator*{\mat}{mat}
+\DeclareMathOperator*{\unif}{unif}
+% \DeclareMathOperator*{\exp}{exp}
+\DeclareMathOperator{\prox}{prox}
+% \DeclareMathAlphabet\mathbfcal{OMS}{cmsy}{b}{n}
 
 \widowpenalty=10000
 \clubpenalty=10000
