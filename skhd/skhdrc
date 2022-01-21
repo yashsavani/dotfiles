@@ -113,8 +113,8 @@ alt - r         : yabai -m space --rotate 270
 shift + alt - r : yabai -m space --rotate 90
 
 # Rotate on X and Y Axis
-alt - x : yabai -m space --mirror x-axis
-alt - y : yabai -m space --mirror y-axis
+# alt - x : yabai -m space --mirror x-axis
+# alt - y : yabai -m space --mirror y-axis
 
 # Navigation between displays
 alt - return : yabai -m display --focus next || yabai -m display --focus first
