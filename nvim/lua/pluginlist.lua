@@ -151,7 +151,7 @@ return packer.startup(function()
     --         require("prosesitter"):setup()
     --     end
     -- }
-    use 'da-h/AirLatex.vim'
+    -- use 'da-h/AirLatex.vim'
     use 'rhysd/vim-grammarous'
 
 end, { display = { border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" } } })
