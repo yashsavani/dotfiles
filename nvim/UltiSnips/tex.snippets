@@ -1,13 +1,16 @@
 global !p
 def math():
+	return False
 	return vim.exec_lua(
 	"""return require'nvim-treesitter.textobjects.shared'.textobject_at_point([[@text.math]], nil, nil, {})"""
 	) is not None
 def comment():
+	return False
 	return vim.exec_lua(
 	"""return require'nvim-treesitter.textobjects.shared'.textobject_at_point([[@text.math]], nil, nil, {})"""
 	) is not None
 def env(name):
+	return False
 	return vim.exec_lua(
 	"""return require'nvim-treesitter.textobjects.shared'.textobject_at_point([[@text.math]], nil, nil, {})"""
 	) is not None
@@ -858,6 +861,10 @@ endsnippet
 
 snippet ;tt "text" iA
 \text{$1}$0
+endsnippet
+
+snippet ;mt "text" iA
+\texttt{$1}$0
 endsnippet
 
 snippet ;case "cases" wA

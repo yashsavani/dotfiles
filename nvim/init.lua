@@ -148,12 +148,11 @@ map("x", "J", [[:move '>+1<CR>gv-gv]], noremap_silent)
 map("n", "<A-k>", [[:move -2<CR>==]], noremap_silent)
 map("n", "<A-j>", [[:move +<CR>==]], noremap_silent)
 
--- Quick save.
+-- Shortcuts.
 map("n", "<Leader>s", [[:w<CR>]], noremap_silent)
-
--- Quick exit.
 map("n", "<Leader>q", [[:q<CR>]], noremap_silent)
 map("n", "<Leader>x", [[:close<CR>]], noremap_silent)
+map("n", "<Leader>m", [[:make<CR><CR>]], noremap_silent)
 
 -- Emacs-like
 map("i", "<C-e>", [[<Esc>A]], noremap_silent)
