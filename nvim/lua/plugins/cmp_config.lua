@@ -15,7 +15,7 @@ cmp.setup({
         expand = function(args) vim.fn["UltiSnips#Anon"](args.body) end,
     },
     completion = {
-        completeopt = "menu,menuone,noselect",
+        completeopt = "menu,menuone,noselect,preview",
         keyword_length = 2,
     },
     mapping = {
@@ -60,6 +60,12 @@ cmp.setup({
         { name = 'buffer' },
         { name = 'pandoc_references' },
     },
+})
+
+cmp.setup.cmdline('/', {
+    sources = {
+    { name = 'buffer' }
+    }
 })
 
 cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))

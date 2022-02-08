@@ -115,3 +115,4 @@ lsp_installer.on_server_ready(function(server)
     vim.cmd [[ do User LspAttachBuffers ]]
 end)
 
+require "lsp_signature".on_attach()

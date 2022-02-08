@@ -1,5 +1,6 @@
 require('nvim-autopairs').setup{
   check_ts = true,
+  disable_filetype = { "TelescopePrompt" , "guihua", "guihua_rust", "clap_input" },
   ignored_next_char = "[%w%.]" -- will ignore alphanumeric and `.` symbol
 }
 local Rule = require('nvim-autopairs.rule')

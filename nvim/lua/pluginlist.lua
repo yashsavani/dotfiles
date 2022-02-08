@@ -27,6 +27,11 @@ return packer.startup(function()
         requires = "kyazdani42/nvim-web-devicons",
         config = function() require("trouble").setup {} end
     }
+    use {
+        'ray-x/navigator.lua',
+        requires = {'ray-x/guihua.lua', run = 'cd lua/fzy && make'},
+        config = function () require("navigator").setup {} end
+    }
 
     -- Autocomplete
     use {
@@ -37,6 +42,7 @@ return packer.startup(function()
     use { "hrsh7th/cmp-buffer", after = "nvim-cmp" }
     use { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" }
     use { "jc-doyle/cmp-pandoc-references", after = "nvim-cmp" }
+    use { "ray-x/lsp_signature.nvim"}
 
     -- Snippets
     use "SirVer/ultisnips"
