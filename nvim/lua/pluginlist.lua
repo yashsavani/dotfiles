@@ -72,7 +72,7 @@ return packer.startup(function()
     use {
         'lewis6991/gitsigns.nvim',
         requires = 'nvim-lua/plenary.nvim',
-        config = function() require("gitsigns").setup{current_line_blame = true} end
+        config = function() require("gitsigns").setup{ current_line_blame = true } end
     }
 
     -- Terminal
@@ -87,6 +87,17 @@ return packer.startup(function()
         end
     }
 
+    -- Status lines
+    use {
+        'romgrk/barbar.nvim',
+        requires = {'kyazdani42/nvim-web-devicons'}
+    }
+    use {
+        'hoob3rt/lualine.nvim',
+        requires = {'kyazdani42/nvim-web-devicons', opt = true},
+        config = function() require"lualine".setup{options={theme = "onedark"}} end
+    }
+
     -- Miscellaneous
     -- Working
     use {
@@ -96,31 +107,19 @@ return packer.startup(function()
     use 'justinmk/vim-sneak'
     -- use 'ggandor/lightspeed.nvim'
     use {
-        'romgrk/barbar.nvim',
-        requires = {'kyazdani42/nvim-web-devicons'}
+        'nacro90/numb.nvim',
+        config = function() require('numb').setup() end
     }
-    use 'nacro90/numb.nvim'
-    use "lukas-reineke/indent-blankline.nvim"
     use "machakann/vim-sandwich"
     use {
         "folke/which-key.nvim",
         config = function() require("which-key").setup {} end
     }
-    use {
-        'hoob3rt/lualine.nvim',
-        requires = {'kyazdani42/nvim-web-devicons', opt = true},
-        config = function() require"lualine".setup{options={theme = "onedark"}}end
-    }
     use "monaqa/dial.nvim"
+    use "lukas-reineke/indent-blankline.nvim"
     use {
         "henriquehbr/nvim-startup.lua",
         config = function() require("nvim-startup").setup() end
-    }
-
-    -- Unsure
-    use {
-        'lewis6991/spellsitter.nvim',
-        config = function() require('spellsitter').setup() end
     }
     use {
         'b3nj5m1n/kommentary',
@@ -132,8 +131,12 @@ return packer.startup(function()
         end
     }
     use {'kevinhwang91/nvim-bqf', ft="qf"}
-    use "jbyuki/nabla.nvim"
     use "bfredl/nvim-ipy"
-    use 'rhysd/vim-grammarous'
+
+    -- Unsure
+    use {
+        'lewis6991/spellsitter.nvim',
+        config = function() require('spellsitter').setup {enable=true} end
+    }
 
 end, { display = { border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" } } })

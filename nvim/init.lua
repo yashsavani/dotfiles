@@ -7,8 +7,16 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 end
 
 -- PLUGIN CONFIGURATION
+vim.opt.list = true
+vim.opt.listchars:append("space:⋅")
+vim.opt.listchars:append("eol:↴")
 require("pluginlist")
 vim.cmd "runtime macros/sandwich/keymap/surround.vim"
+require("indent_blankline").setup {
+    space_char_blankline = " ",
+    show_current_context = true,
+    show_current_context_start = true,
+}
 
 -- SETTINGS
 local scopes = { o = vim.o, b = vim.bo, w = vim.wo }
@@ -174,9 +182,10 @@ map("n", "<Leader>fo", [[<cmd>lua require('telescope.builtin').oldfiles()<cr>]],
 map("n", "<Leader>fs", [[<cmd>lua require('telescope.builtin').spell_suggest()<cr>]], noremap_silent)
 map("n", "<Leader>fq", [[<cmd>lua require('telescope.builtin').quickfix()<cr>]], noremap_silent)
 
--- Neogit keymaps.
+-- Git keymaps.
 -- map("n", "<Leader>gg", [[:lua require("neogit").open({ kind = "vsplit" })<cr>]], noremap_silent)
 -- map("n", "<Leader>gc", [[:lua require("neogit").open({ "commit" })<cr>]], noremap_silent)
+map("n", "<Leader>hp", [[:Gitsigns preview_hunk<cr>]], noremap_silent)
 
 -- Spelling
 map("i", "<C-s>", [[<C-g>u<Esc>[s1z=`]a<C-g>u]], noremap_silent)
