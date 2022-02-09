@@ -168,7 +168,6 @@ map("n", "<C-n>", [[:lua require("nvim-tree").toggle()<CR>]], noremap_silent)
 -- Telescope keymaps.
 map("n", "<Leader><Space>", [[<cmd>lua require('telescope.builtin').buffers()<cr>]], noremap_silent)
 map("n", "<Leader>ff", [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<cr>]], noremap_silent)
-map("n", "<Leader>fr", [[<cmd>lua require('telescope').extensions.frecency.frecency()<cr>]], noremap_silent)
 map("n", "<Leader>fg", [[<cmd>lua require('telescope.builtin').live_grep()<cr>]], noremap_silent)
 map("n", "<Leader>fh", [[<cmd>lua require('telescope.builtin').help_tags()<cr>]], noremap_silent)
 map("n", "<Leader>fo", [[<cmd>lua require('telescope.builtin').oldfiles()<cr>]], noremap_silent)
@@ -176,8 +175,8 @@ map("n", "<Leader>fs", [[<cmd>lua require('telescope.builtin').spell_suggest()<c
 map("n", "<Leader>fq", [[<cmd>lua require('telescope.builtin').quickfix()<cr>]], noremap_silent)
 
 -- Neogit keymaps.
-map("n", "<Leader>gg", [[:lua require("neogit").open({ kind = "vsplit" })<cr>]], noremap_silent)
-map("n", "<Leader>gc", [[:lua require("neogit").open({ "commit" })<cr>]], noremap_silent)
+-- map("n", "<Leader>gg", [[:lua require("neogit").open({ kind = "vsplit" })<cr>]], noremap_silent)
+-- map("n", "<Leader>gc", [[:lua require("neogit").open({ "commit" })<cr>]], noremap_silent)
 
 -- Spelling
 map("i", "<C-s>", [[<C-g>u<Esc>[s1z=`]a<C-g>u]], noremap_silent)
@@ -198,26 +197,26 @@ map("n", "<C-j>", [[:cnext<CR>]], noremap_silent)
 map("n", "<C-k>", [[:cprev<CR>]], noremap_silent)
 
 -- LSPSaga keymaps.
-map("n", "<Leader>e", [[:lua require"lspsaga.diagnostic".show_line_diagnostics()<CR>]], noremap_silent)
-map("n", "[e", [[:lua require"lspsaga.diagnostic".lsp_jump_diagnostic_prev()<CR>]], noremap_silent)
-map("n", "]e", [[:lua require"lspsaga.diagnostic".lsp_jump_diagnostic_next()<CR>]], noremap_silent)
+-- map("n", "<Leader>e", [[:lua require"lspsaga.diagnostic".show_line_diagnostics()<CR>]], noremap_silent)
+-- map("n", "[e", [[:lua require"lspsaga.diagnostic".lsp_jump_diagnostic_prev()<CR>]], noremap_silent)
+-- map("n", "]e", [[:lua require"lspsaga.diagnostic".lsp_jump_diagnostic_next()<CR>]], noremap_silent)
 
 -- LSP keymaps.
-map("n", "<Leader>la", [[:lua require("lspsaga.codeaction").code_action()<CR>]], noremap_silent)
-map("v", "<Leader>la", [[:<C-U>lua require("lspsaga.codeaction").range_code_action()<CR>]], noremap_silent)
-map("n", "<Leader>ld", [[:Telescope lsp_document_diagnostics<CR>]], noremap_silent)
-map("n", "<Leader>lw", [[:Telescope lsp_workspace_diagnostics<CR>]], noremap_silent)
-map("n", "<Leader>lf", [[:lua vim.lsp.buf.formatting()<CR>]], noremap_silent)
-map("n", "<Leader>lh", [[:lua require("lspsaga.hover").render_hover_doc()<CR>]], noremap_silent)
-map("n", "<Leader>lI", [[:LspInfo<CR>]], noremap_silent)
-map("n", "<Leader>ll", [[:lua require"lspsaga.provider".lsp_finder()<CR>]], noremap_silent)
-map("n", "<Leader>lp", [[:lua require"lspsaga.provider".preview_definition()<CR>]], noremap_silent)
-map("n", "<Leader>lq", [[:Telescope quickfix<CR>]], noremap_silent)
-map("n", "<Leader>lr", [[:lua require("lspsaga.rename").rename()<CR>]], noremap_silent)
-map("n", "<Leader>lt", [[:lua vim.lsp.buf.type_definition()<CR>]], noremap_silent)
-map("n", "<Leader>lx", [[:cclose<CR>]], noremap_silent)
-map("n", "<Leader>lsd", [[:Telescope lsp_document_symbols<CR>]], noremap_silent)
-map("n", "<Leader>lsw", [[:Telescope lsp_dynamic_workspace_symbols<CR>]], noremap_silent)
+-- map("n", "<Leader>la", [[:lua require("lspsaga.codeaction").code_action()<CR>]], noremap_silent)
+-- map("v", "<Leader>la", [[:<C-U>lua require("lspsaga.codeaction").range_code_action()<CR>]], noremap_silent)
+-- map("n", "<Leader>ld", [[:Telescope lsp_document_diagnostics<CR>]], noremap_silent)
+-- map("n", "<Leader>lw", [[:Telescope lsp_workspace_diagnostics<CR>]], noremap_silent)
+-- map("n", "<Leader>lf", [[:lua vim.lsp.buf.formatting()<CR>]], noremap_silent)
+-- map("n", "<Leader>lh", [[:lua require("lspsaga.hover").render_hover_doc()<CR>]], noremap_silent)
+-- map("n", "<Leader>lI", [[:LspInfo<CR>]], noremap_silent)
+-- map("n", "<Leader>ll", [[:lua require"lspsaga.provider".lsp_finder()<CR>]], noremap_silent)
+-- map("n", "<Leader>lp", [[:lua require"lspsaga.provider".preview_definition()<CR>]], noremap_silent)
+-- map("n", "<Leader>lq", [[:Telescope quickfix<CR>]], noremap_silent)
+-- map("n", "<Leader>lr", [[:lua require("lspsaga.rename").rename()<CR>]], noremap_silent)
+-- map("n", "<Leader>lt", [[:lua vim.lsp.buf.type_definition()<CR>]], noremap_silent)
+-- map("n", "<Leader>lx", [[:cclose<CR>]], noremap_silent)
+-- map("n", "<Leader>lsd", [[:Telescope lsp_document_symbols<CR>]], noremap_silent)
+-- map("n", "<Leader>lsw", [[:Telescope lsp_dynamic_workspace_symbols<CR>]], noremap_silent)
 
 -- Nvim IPy
 vim.api.nvim_exec([[

@@ -18,10 +18,6 @@ return packer.startup(function()
         'williamboman/nvim-lsp-installer',
         config = function() require"plugins.lspconfig" end
     }
-    -- use {
-    --     'glepnir/lspsaga.nvim',
-    --     config = function() require'lspsaga'.init_lsp_saga() end
-    -- }
     use {
         "folke/trouble.nvim",
         requires = "kyazdani42/nvim-web-devicons",
@@ -32,6 +28,7 @@ return packer.startup(function()
         requires = {'ray-x/guihua.lua', run = 'cd lua/fzy && make'},
         config = function () require("navigator").setup {} end
     }
+    -- use { "ray-x/lsp_signature.nvim"}
 
     -- Autocomplete
     use {
@@ -42,7 +39,6 @@ return packer.startup(function()
     use { "hrsh7th/cmp-buffer", after = "nvim-cmp" }
     use { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" }
     use { "jc-doyle/cmp-pandoc-references", after = "nvim-cmp" }
-    use { "ray-x/lsp_signature.nvim"}
 
     -- Snippets
     use "SirVer/ultisnips"
@@ -57,16 +53,12 @@ return packer.startup(function()
     }
     use 'nvim-treesitter/nvim-treesitter-textobjects'
     use 'nvim-treesitter/playground'
+    use { 'nvim-treesitter/nvim-treesitter-refactor' }
 
     -- Telescope
     use {
         'nvim-telescope/telescope.nvim',
         requires = 'nvim-lua/plenary.nvim'
-    }
-    use {
-      "nvim-telescope/telescope-frecency.nvim",
-      requires = {"tami5/sqlite.lua"},
-      config = function() require"telescope".load_extension("frecency") end,
     }
 
     -- Explorer
@@ -82,11 +74,6 @@ return packer.startup(function()
         requires = 'nvim-lua/plenary.nvim',
         config = function() require("gitsigns").setup{current_line_blame = true} end
     }
-    -- use {
-    --     'TimUntersberger/neogit',
-    --     requires = 'nvim-lua/plenary.nvim',
-    --     config = function() require("neogit").setup() end
-    -- }
 
     -- Terminal
     use {
@@ -101,6 +88,36 @@ return packer.startup(function()
     }
 
     -- Miscellaneous
+    -- Working
+    use {
+        "windwp/nvim-autopairs",
+        config = function() require("plugins.autopairs") end
+    }
+    use 'justinmk/vim-sneak'
+    -- use 'ggandor/lightspeed.nvim'
+    use {
+        'romgrk/barbar.nvim',
+        requires = {'kyazdani42/nvim-web-devicons'}
+    }
+    use 'nacro90/numb.nvim'
+    use "lukas-reineke/indent-blankline.nvim"
+    use "machakann/vim-sandwich"
+    use {
+        "folke/which-key.nvim",
+        config = function() require("which-key").setup {} end
+    }
+    use {
+        'hoob3rt/lualine.nvim',
+        requires = {'kyazdani42/nvim-web-devicons', opt = true},
+        config = function() require"lualine".setup{options={theme = "onedark"}}end
+    }
+    use "monaqa/dial.nvim"
+    use {
+        "henriquehbr/nvim-startup.lua",
+        config = function() require("nvim-startup").setup() end
+    }
+
+    -- Unsure
     use {
         'lewis6991/spellsitter.nvim',
         config = function() require('spellsitter').setup() end
@@ -114,51 +131,9 @@ return packer.startup(function()
             })
         end
     }
-    use {
-        "windwp/nvim-autopairs",
-        config = function() require("plugins.autopairs") end
-    }
-    use {
-        "henriquehbr/nvim-startup.lua",
-        config = function() require("nvim-startup").setup() end
-    }
-    use 'nacro90/numb.nvim'
-    use "lukas-reineke/indent-blankline.nvim"
-    use "machakann/vim-sandwich"
-    use {
-        "folke/which-key.nvim",
-        config = function() require("which-key").setup {} end
-    }
-    -- use 'ggandor/lightspeed.nvim'
-    use 'justinmk/vim-sneak'
-    use {
-        'romgrk/barbar.nvim',
-        requires = {'kyazdani42/nvim-web-devicons'}
-    }
     use {'kevinhwang91/nvim-bqf', ft="qf"}
-    use {
-        'hoob3rt/lualine.nvim',
-        requires = {'kyazdani42/nvim-web-devicons', opt = true},
-        config = function() require"lualine".setup{options={theme = "onedark"}}end
-    }
-    -- use {
-    --     "wfxr/minimap.vim",
-    --     run = ':!cargo install --locked code-minimap'
-    -- }
-    use "monaqa/dial.nvim"
-    use "vimwiki/vimwiki"
     use "jbyuki/nabla.nvim"
     use "bfredl/nvim-ipy"
-    -- use "lervag/vimtex"
-    use "simrat39/symbols-outline.nvim"
-    -- use {
-    --     'dvdsk/prosesitter',
-    --     config = function()
-    --         require("telescope").load_extension("prosesitter")
-    --         require("prosesitter"):setup()
-    --     end
-    -- }
-    -- use 'da-h/AirLatex.vim'
     use 'rhysd/vim-grammarous'
 
 end, { display = { border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" } } })

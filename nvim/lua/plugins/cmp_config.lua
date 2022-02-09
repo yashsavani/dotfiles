@@ -62,10 +62,20 @@ cmp.setup({
     },
 })
 
+cmp.setup.cmdline(':', {
+    sources = {
+    { name = 'cmdline' }
+    }
+})
+
 cmp.setup.cmdline('/', {
     sources = {
     { name = 'buffer' }
     }
 })
+
+if vim.o.ft == 'clap_input' and vim.o.ft == 'guihua' and vim.o.ft == 'guihua_rust' then
+  cmp.setup.buffer { completion = {enable = false} }
+end
 
 cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
