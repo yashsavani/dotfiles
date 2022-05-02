@@ -462,6 +462,14 @@ snippet ali "Align" bA
 .\end{align*}
 endsnippet
 
+snippet ;ct "Cite" wA
+\cite{${1:${VISUAL}}}
+endsnippet
+
+snippet ;cp "Citep" wA
+\cite{${1:${VISUAL}}}
+endsnippet
+
 # context "math()"
 # snippet // "Fraction" iA
 # \\frac{$1}{$2}$0
@@ -595,7 +603,7 @@ snippet ;conj "conjugate" iA
 endsnippet
 
 snippet sum "sum" w
-\sum_{n=${1:1}}^{${2:\infty}} ${3:a_n z^n}
+\sum_{i=${1:1}}^{${2:\infty}} ${3}
 endsnippet
 
 snippet taylor "taylor" w
@@ -920,7 +928,7 @@ endsnippet
 
 priority 100
 snippet "([a-zA-Z01]);;" "vec" riA
-\vec{`!p snip.rv=match.group(1)`}
+\b`!p snip.rv=match.group(1)`
 endsnippet
 
 snippet letw "let omega" iA
@@ -943,17 +951,30 @@ snippet "([a-zA-Z]);sloop" "i in [n]" riA
 _{i \in [`!p snip.rv=match.group(1)`]}
 endsnippet
 
-snippet "([a-zA-Z]);sum" "i in [n]" riA
+snippet "\s([a-zA-Z]);sum" "i in [n]" riA
 \sum_{i \in [`!p snip.rv=match.group(1)`]}
 endsnippet
 
-snippet "([a-zA-Z]);prod" "i in [n]" riA
+snippet "([a-zA-Z])([a-zA-Z]);sum" "i in [n]" riA
+\sum_{`!p snip.rv=match.group(1)` \in [`!p snip.rv=match.group(2)`]}
+endsnippet
+
+snippet "\s([a-zA-Z]);prod" "i in [n]" riA
 \prod_{i \in [`!p snip.rv=match.group(1)`]}
+endsnippet
+
+snippet "([a-zA-Z])([a-zA-Z]);prod" "i in [n]" riA
+\prod_{`!p snip.rv=match.group(1)` \in [`!p snip.rv=match.group(2)`]}
 endsnippet
 
 priority 10
 snippet ;opt "opt" iA
 ^*
+endsnippet
+
+priority 10
+snippet ;ppn "parens" iA
+\parens*{${1}}
 endsnippet
 
 snippet ;frac "frac" iA
@@ -1019,4 +1040,12 @@ endsnippet
 context "math()"
 snippet FF "script F" iA
 \mathcal{F}
+endsnippet
+
+snippet "([a-zA-Z]);incal" "x in \calX" riA
+`!p snip.rv=match.group(1)` \in \cal`!p snip.rv=match.group(1).upper()`
+endsnippet
+
+snippet ;inp "inner product" iA
+\angles*{${1}, ${2}}${3}
 endsnippet

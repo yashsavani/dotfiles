@@ -205,6 +205,9 @@ map("n", "gR", [[:TroubleToggle lsp_references<CR>]], noremap_silent)
 map("n", "<C-j>", [[:cnext<CR>]], noremap_silent)
 map("n", "<C-k>", [[:cprev<CR>]], noremap_silent)
 
+-- Ultisnips
+map("n", "<Leader>es", [[:UltiSnipsEdit<CR>]], noremap_silent)
+
 -- LSPSaga keymaps.
 -- map("n", "<Leader>e", [[:lua require"lspsaga.diagnostic".show_line_diagnostics()<CR>]], noremap_silent)
 -- map("n", "[e", [[:lua require"lspsaga.diagnostic".lsp_jump_diagnostic_prev()<CR>]], noremap_silent)
