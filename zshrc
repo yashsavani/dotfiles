@@ -61,6 +61,7 @@ alias vconf="(cd ~/.config && vim)"
 alias sshfslocus="umount -f ~/dev/locus || sshfs -o kernel_cache,cache=yes,compression=no ysavani@locus.cs.cmu.edu:/home/ysavani ~/dev/locus"
 # alias setuptex="(find ~/.config/latex ! -name main.tex ! -name latex | xargs -I{} ln -sf {} .) && cp $HOME/.config/latex/main.tex ."
 alias setuptex="cp $HOME/.config/latex/main.tex . && cp $HOME/.config/latex/Makefile ."
+alias rsyncd="$HOME/.config/rsyncd.sh"
 
 
 # >>> conda initialize >>>
