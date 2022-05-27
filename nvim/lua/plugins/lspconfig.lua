@@ -163,12 +163,7 @@ require "navigator".setup({
         servers = { 'ltex' },
         pyright = { cmd = { install_root_dir .. '/python/node_modules/pyright/langserver.index.js', '--stdio' } },
         sumneko_lua = { cmd = { install_root_dir .. '/sumneko_lua/extension/server/bin/lua-language-server' } },
-<<<<<<< Updated upstream
         -- texlab = { cmd = { install_root_dir .. '/latex/texlab' }, settings = texlab_settings },
         ltex = {cmd = { install_root_dir .. '/ltex/ltex-ls/bin/ltex-ls' }}
-=======
-        texlab = { cmd = { install_root_dir .. '/latex/texlab' }, settings = texlab_settings },
-        ltex = { cmd = { install_root_dir .. '/ltex/ltex-ls/bin/ltex-ls' } }
->>>>>>> Stashed changes
     }
 })
