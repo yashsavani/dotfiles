@@ -205,7 +205,7 @@ map("n", "gR", [[:TroubleToggle lsp_references<CR>]], noremap_silent)
 map("n", "<C-j>", [[:cnext<CR>]], noremap_silent)
 map("n", "<C-k>", [[:cprev<CR>]], noremap_silent)
 
--- Ultisnips
+-- Ultisnips Edit
 map("n", "<Leader>es", [[:UltiSnipsEdit<CR>]], noremap_silent)
 
 -- LSPSaga keymaps.

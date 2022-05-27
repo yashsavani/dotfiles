@@ -1,4 +1,5 @@
-local packer = require("packer") local use = packer.use
+local packer = require("packer")
+local use = packer.use
 
 packer.init({
     display = { open_cmd = "leftabove 80vnew [packer]" },
@@ -16,7 +17,7 @@ return packer.startup(function()
     use 'neovim/nvim-lspconfig'
     use {
         'williamboman/nvim-lsp-installer',
-        config = function() require"plugins.lspconfig" end
+        config = function() require "plugins.lspconfig" end
     }
     use {
         "folke/trouble.nvim",
@@ -25,15 +26,15 @@ return packer.startup(function()
     }
     use {
         'ray-x/navigator.lua',
-        requires = {'ray-x/guihua.lua', run = 'cd lua/fzy && make'},
-        config = function () require("navigator").setup {} end
+        requires = { 'ray-x/guihua.lua', run = 'cd lua/fzy && make' },
+        config = function() require("navigator").setup {} end
     }
     -- use { "ray-x/lsp_signature.nvim"}
 
     -- Autocomplete
     use {
         'hrsh7th/nvim-cmp',
-        config = function() require"plugins.cmp_config" end
+        config = function() require "plugins.cmp_config" end
     }
     use { "hrsh7th/cmp-path", after = "nvim-cmp" }
     use { "hrsh7th/cmp-buffer", after = "nvim-cmp" }
@@ -48,7 +49,7 @@ return packer.startup(function()
     -- TreeSitter
     use {
         "nvim-treesitter/nvim-treesitter",
-        config = function() require"plugins.treesitter" end,
+        config = function() require "plugins.treesitter" end,
         run = ":TSUpdate"
     }
     use 'nvim-treesitter/nvim-treesitter-textobjects'
@@ -65,37 +66,38 @@ return packer.startup(function()
     use {
         "kyazdani42/nvim-tree.lua",
         requires = 'kyazdani42/nvim-web-devicons',
-        config = function() require'nvim-tree'.setup{} end
+        config = function() require 'nvim-tree'.setup {} end
     }
 
     -- Git
     use {
         'lewis6991/gitsigns.nvim',
         requires = 'nvim-lua/plenary.nvim',
-        config = function() require("gitsigns").setup{ current_line_blame = true } end
+        config = function() require("gitsigns").setup { current_line_blame = true } end
     }
 
     -- Terminal
-    use {
-        "akinsho/toggleterm.nvim",
-        config = function()
-            require"toggleterm".setup{open_mapping = [[<C-\>]]}
-            local Terminal  = require('toggleterm.terminal').Terminal
-            local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = 'float' })
-            function _lazygit_toggle() lazygit:toggle() end
-            vim.api.nvim_set_keymap("n", "<leader>lg", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
-        end
-    }
+    -- use {
+    --     "akinsho/toggleterm.nvim",
+    --     config = function()
+    --         require "toggleterm".setup { open_mapping = [[<C-\>]] }
+    --         local Terminal = require('toggleterm.terminal').Terminal
+    --         local lazygit  = Terminal:new({ cmd = "lazygit", hidden = true, direction = 'float' })
+    --         function _lazygit_toggle() lazygit:toggle() end
+
+    --         vim.api.nvim_set_keymap("n", "<leader>lg", "<cmd>lua _lazygit_toggle()<CR>", { noremap = true, silent = true })
+    --     end
+    -- }
 
     -- Status lines
     use {
         'romgrk/barbar.nvim',
-        requires = {'kyazdani42/nvim-web-devicons'}
+        requires = { 'kyazdani42/nvim-web-devicons' }
     }
     use {
         'hoob3rt/lualine.nvim',
-        requires = {'kyazdani42/nvim-web-devicons', opt = true},
-        config = function() require"lualine".setup{options={theme = "onedark"}} end
+        requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+        config = function() require "lualine".setup { options = { theme = "onedark" } } end
     }
 
     -- Miscellaneous
@@ -130,13 +132,13 @@ return packer.startup(function()
             })
         end
     }
-    use {'kevinhwang91/nvim-bqf', ft="qf"}
+    use { 'kevinhwang91/nvim-bqf', ft = "qf" }
     use "bfredl/nvim-ipy"
 
     -- Unsure
     use {
         'lewis6991/spellsitter.nvim',
-        config = function() require('spellsitter').setup {enable=true} end
+        config = function() require('spellsitter').setup { enable = true } end
     }
 
 end, { display = { border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" } } })

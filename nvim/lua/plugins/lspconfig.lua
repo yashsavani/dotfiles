@@ -1,4 +1,3 @@
-
 --   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnum, ...) end
 --   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnum, ...) end
 --   local noremap_silent = { noremap = true, silent = true }
@@ -68,7 +67,7 @@ local texlab_settings = {
         },
         forwardSearch = {
             executable = "/Applications/Skim.app/Contents/SharedSupport/displayline",
-            args =  {"%l", "%p", "%f"}
+            args = { "%l", "%p", "%f" }
         }
     }
 }
@@ -77,7 +76,6 @@ local lsp_installer = require("nvim-lsp-installer")
 local servers = {
     "sumneko_lua",
     "pyright",
-    -- "texlab",
     "ltex",
 }
 
@@ -118,10 +116,9 @@ lsp_installer.settings {
 --     end
 -- end)
 
-local path = require 'nvim-lsp-installer.path'
-local install_root_dir = path.concat{vim.fn.stdpath 'data', 'lsp_servers'}
+local install_root_dir = vim.fn.stdpath 'data'.. '/lsp_servers'
 
-require"navigator".setup({
+require "navigator".setup({
     default_mapping = false,
     keymaps = {
         { key = 'gr', func = "require('navigator.reference').reference()" },
@@ -166,7 +163,12 @@ require"navigator".setup({
         servers = { 'ltex' },
         pyright = { cmd = { install_root_dir .. '/python/node_modules/pyright/langserver.index.js', '--stdio' } },
         sumneko_lua = { cmd = { install_root_dir .. '/sumneko_lua/extension/server/bin/lua-language-server' } },
+<<<<<<< Updated upstream
         -- texlab = { cmd = { install_root_dir .. '/latex/texlab' }, settings = texlab_settings },
         ltex = {cmd = { install_root_dir .. '/ltex/ltex-ls/bin/ltex-ls' }}
+=======
+        texlab = { cmd = { install_root_dir .. '/latex/texlab' }, settings = texlab_settings },
+        ltex = { cmd = { install_root_dir .. '/ltex/ltex-ls/bin/ltex-ls' } }
+>>>>>>> Stashed changes
     }
 })
