@@ -84,6 +84,7 @@ ctrl + alt + cmd - r : \
 alt - w : yabai -m window $(yabai -m query --windows --window | jq -re ".id") --close || yabai -m window --focus next
 alt - t : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
 alt - g : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~ kitty +kitten ssh localgpu
+alt - z : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~ kitty +kitten ssh locus
 alt - b : /Applications/Brave\ Browser.app/Contents/MacOS/Brave\ Browser
 lctrl + alt - t : curr_display=$(yabai -m query --displays --display | jq -re ".index"); \
                   yabai -m space --create ; \
