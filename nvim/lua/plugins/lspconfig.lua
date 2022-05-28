@@ -78,7 +78,6 @@ local servers = {
     "pyright",
     "ltex",
 }
-
 for _, name in pairs(servers) do
     local ok, server = lsp_installer.get_server(name)
     -- Check that the server is supported in nvim-lsp-installer
@@ -116,7 +115,7 @@ lsp_installer.settings {
 --     end
 -- end)
 
-local install_root_dir = vim.fn.stdpath 'data'.. '/lsp_servers'
+local install_root_dir = vim.fn.stdpath 'data' .. '/lsp_servers'
 
 require "navigator".setup({
     default_mapping = false,
@@ -159,11 +158,11 @@ require "navigator".setup({
         { key = '<Space>la', mode = 'n', func = "require('navigator.codelens').run_action()" },
     },
     lsp_installer = true,
-    lsp = {
-        servers = { 'ltex' },
-        pyright = { cmd = { install_root_dir .. '/python/node_modules/pyright/langserver.index.js', '--stdio' } },
-        sumneko_lua = { cmd = { install_root_dir .. '/sumneko_lua/extension/server/bin/lua-language-server' } },
-        -- texlab = { cmd = { install_root_dir .. '/latex/texlab' }, settings = texlab_settings },
-        ltex = {cmd = { install_root_dir .. '/ltex/ltex-ls/bin/ltex-ls' }}
-    }
+    -- lsp = {
+    --     servers = { 'ltex' },
+    --     pyright = { cmd = { install_root_dir .. '/python/node_modules/pyright/langserver.index.js', '--stdio' } },
+    --     sumneko_lua = { cmd = { install_root_dir .. '/sumneko_lua/extension/server/bin/lua-language-server' } },
+    --     -- texlab = { cmd = { install_root_dir .. '/latex/texlab' }, settings = texlab_settings },
+    --     ltex = { cmd = { install_root_dir .. '/ltex/ltex-ls/bin/ltex-ls' } }
+    -- }
 })
