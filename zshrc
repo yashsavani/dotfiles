@@ -58,7 +58,7 @@ antigen theme git@github.com:romkatv/powerlevel10k.git
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Tell Antigen that you're done
+# Tell Antigen that you're done.
 antigen apply
 
 # eval "$(fasd --init auto)"
