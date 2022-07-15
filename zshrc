@@ -37,7 +37,7 @@ antigen theme git@github.com:romkatv/powerlevel10k.git
 
 antigen apply
 
-eval "$(fasd --init auto)"
+# eval "$(fasd --init auto)"
 
 export PATH=$PATH:/usr/local/sbin:${HOME}/.local/bin
 
@@ -68,15 +68,15 @@ alias rsyncd="$HOME/.config/rsyncd.sh"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/usr/local/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/usr/local/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
-  eval "$__conda_setup"
+    eval "$__conda_setup"
 else
-  if [ -f "/usr/local/anaconda3/etc/profile.d/conda.sh" ]; then
-    . "/usr/local/anaconda3/etc/profile.d/conda.sh"
-  else
-    export PATH="/usr/local/anaconda3/bin:$PATH"
-  fi
+    if [ -f "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+        . "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+    else
+        export PATH="/usr/local/Caskroom/miniconda/base/bin:$PATH"
+    fi
 fi
 unset __conda_setup
 # <<< conda initialize <<<
@@ -97,4 +97,4 @@ bindkey "^H" backward-delete-char
 bindkey "^U" backward-kill-line
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-source /usr/share/doc/fzf/examples/key-bindings.zsh
+# source /usr/share/doc/fzf/examples/key-bindings.zsh
