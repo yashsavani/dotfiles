@@ -5,38 +5,41 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+autoload -U compinit
+compinit
 
-# Path to your oh-my-zsh installation.
-export SHELL="/usr/local/bin/zsh"
+# allow tab completions in the middle of a word
+setopt COMPLETE_IN_WORD
 
-source /usr/local/share/antigen/antigen.zsh
+source $HOME/antigen.zsh
 
+# Load the oh-my-zsh's library
 antigen use oh-my-zsh
 
-antigen theme romkatv/powerlevel10k
-
+# Bundles from the default repo (robbyrussell's oh-my-zsh)
 antigen bundle git
 antigen bundle pip
 antigen bundle command-not-found
-antigen bundle docker
+
+# Zsh Users bundles
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-history-substring-search
+antigen bundle unixorn/fzf-zsh-plugin@main
 
-antigen apply
+# Load the theme
+# antigen theme robbyrussell
+antigen theme git@github.com:romkatv/powerlevel10k.git
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+antigen apply
 
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
+eval "$(fasd --init auto)"
 
-# User configuration
-export PATH=$PATH:/usr/local/sbin:/usr/local/anaconda3/bin:${HOME}/.local/bin
+export PATH=$PATH:/usr/local/sbin:${HOME}/.local/bin
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
@@ -51,8 +54,7 @@ export ARCHFLAGS="-arch x86_64"
 alias ls="exa --icons"
 alias ll="exa -lha --icons --group-directories-first --git"
 alias vim="nvim --startuptime /tmp/nvim-startuptime"
-alias more="bat"
-alias updateall="omz update && brew update && brew upgrade && brew cleanup && antigen update && conda update --all -y && pip3 install -U pip3 setuptools wheel"
+alias updateall="brew update && brew upgrade && brew cleanup && antigen update && conda update --all -y"
 alias lg="lazygit"
 alias slocus="kitty +kitten ssh locus"
 alias sgpu="kitty +kitten ssh localgpu"
@@ -80,11 +82,19 @@ unset __conda_setup
 # <<< conda initialize <<<
 #
 #
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt INC_APPEND_HISTORY_TIME
 
 bindkey -e
 
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
+bindkey "^?" backward-delete-char
+bindkey "^W" backward-kill-word 
+bindkey "^H" backward-delete-char
+bindkey "^U" backward-kill-line
 
-if [ -e /Users/yashsavani/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/yashsavani/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source /usr/share/doc/fzf/examples/key-bindings.zsh
