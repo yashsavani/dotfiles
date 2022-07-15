@@ -81,18 +81,19 @@ export EDITOR='nvim'
 export ARCHFLAGS="-arch x86_64"
 
 alias ls="exa --icons"
+alias lls="ls"
 alias ll="exa -lha --icons --group-directories-first --git"
 alias vim="nvim --startuptime /tmp/nvim-startuptime"
 alias updateall="brew update && brew upgrade && brew cleanup && antigen update && mamba update --all -y -c conda-forge -c pytorch"
 alias lg="lazygit"
+alias icat="kitty +kitten icat"
 alias slocus="kitty +kitten ssh locus"
 alias sgpu="kitty +kitten ssh localgpu"
-alias icat="kitty +kitten icat"
 alias vconf="(cd ~/.config && vim)"
 alias sshfslocus="umount -f ~/dev/locus || sshfs -o kernel_cache,cache=yes,compression=no ysavani@locus.cs.cmu.edu:/home/ysavani ~/dev/locus"
 # alias setuptex="(find ~/.config/latex ! -name main.tex ! -name latex | xargs -I{} ln -sf {} .) && cp $HOME/.config/latex/main.tex ."
 alias setuptex="cp $HOME/.config/latex/main.tex . && cp $HOME/.config/latex/Makefile ."
-alias rsyncd="$HOME/.config/rsyncd.sh"
+alias ssync="syncservers.sh"
 
 
 # >>> conda initialize >>>
@@ -125,3 +126,11 @@ bindkey "^U" backward-kill-line
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # source /usr/share/doc/fzf/examples/key-bindings.zsh
+
+# conda update -y -n base conda
+# conda install -y -c conda-forge mamba
+# mamba install -y -c conda-forge kitty
+# mamba install -y -c pytorch -c conda-forge pytorch torchvision torchaudio torchtext cudatoolkit=11.6
+# mamba install -y -c conda-forge gcc git lazygit exa bat make cmake nodejs=16
+# mamba install -y -c conda-forge numpy matplotlib pandas scikit-learn scipy statsmodels scikit-learn-intelex seaborn jupyter jupyterlab neovim python-lsp-server black flake8 submitit ipython ipdb
+
