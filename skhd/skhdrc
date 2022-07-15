@@ -181,26 +181,26 @@ shift + lctrl + alt - return : (yabai -m window --display prev; yabai -m display
 
 # Add the active window  to the window or stack to the {direction}
 # Note that this only works when the active window does *not* already belong to a stack
-cmd + alt - h : yabai -m window west --stack $(yabai -m query --windows --window | jq -r '.id')
-cmd + alt - j : yabai -m window south --stack $(yabai -m query --windows --window | jq -r '.id')
-cmd + alt - k : yabai -m window north --stack $(yabai -m query --windows --window | jq -r '.id')
-cmd + alt - l : yabai -m window east --stack $(yabai -m query --windows --window | jq -r '.id')
+# cmd + alt - h : yabai -m window west --stack $(yabai -m query --windows --window | jq -r '.id')
+# cmd + alt - j : yabai -m window south --stack $(yabai -m query --windows --window | jq -r '.id')
+# cmd + alt - k : yabai -m window north --stack $(yabai -m query --windows --window | jq -r '.id')
+# cmd + alt - l : yabai -m window east --stack $(yabai -m query --windows --window | jq -r '.id')
 
 # Resize windows
-shift + cmd + alt - h : yabai -m window --resize left:-50:0; \
-                        yabai -m window --resize right:-50:0
-shift + cmd + alt - j : yabai -m window --resize bottom:0:50; \
-                        yabai -m window --resize top:0:50
-shift + cmd + alt - k : yabai -m window --resize top:0:-50; \
-                        yabai -m window --resize bottom:0:-50
-shift + cmd + alt - l : yabai -m window --resize right:50:0; \
-                        yabai -m window --resize left:50:0
+cmd + alt - h : yabai -m window --resize left:-50:0; \
+                yabai -m window --resize right:-50:0
+cmd + alt - j : yabai -m window --resize bottom:0:50; \
+                yabai -m window --resize top:0:50
+cmd + alt - k : yabai -m window --resize top:0:-50; \
+                yabai -m window --resize bottom:0:-50
+cmd + alt - l : yabai -m window --resize right:50:0; \
+                yabai -m window --resize left:50:0
 
 # Equalize size of windows
-shift + cmd + alt - e : yabai -m space --balance
+cmd + alt - e : yabai -m space --balance
 
 # Enable / Disable gaps in current workspace
-shift + cmd + alt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
+cmd + alt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
 
 # Set insertion point for focused container
 # shift + lctrl + alt - h : yabai -m window --insert west

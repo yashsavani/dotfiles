@@ -28,6 +28,7 @@ yabai -m rule --add app="^System Information$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Activity Monitor$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Path Finder$" manage=off
 yabai -m rule --add app="^Calendar$" manage=off
+yabai -m rule --add app="^Cyberduck$" manage=off
 yabai -m rule --add app="Fantastical" manage=off
 yabai -m rule --add app="^perl_client_app$" manage=off
 yabai -m rule --add app="^console$" manage=off
