@@ -11,6 +11,29 @@ compinit
 # allow tab completions in the middle of a word
 setopt COMPLETE_IN_WORD
 
+## keep background processes at full speed
+#setopt NOBGNICE
+## restart running processes on exit
+#setopt HUP
+
+## history
+#setopt APPEND_HISTORY
+## for sharing history between zsh processes
+#setopt INC_APPEND_HISTORY
+#setopt SHARE_HISTORY
+
+## never ever beep ever
+#setopt NO_BEEP
+
+## automatically decide when to page a list of completions
+#LISTMAX=0
+
+## disable mail checking
+#MAILCHECK=0
+
+# autoload -U colors
+#colors
+
 source $HOME/antigen.zsh
 
 # Load the oh-my-zsh's library
@@ -35,6 +58,7 @@ antigen theme git@github.com:romkatv/powerlevel10k.git
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# Tell Antigen that you're done
 antigen apply
 
 # eval "$(fasd --init auto)"
