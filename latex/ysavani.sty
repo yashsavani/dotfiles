@@ -1,59 +1,24 @@
-\usepackage[letterpaper,margin=1in]{geometry}
-
+% Style file created for Yash Savani, July 2022.
 \usepackage[utf8]{inputenc} % allow utf-8 input
 \usepackage[T1]{fontenc}    % use 8-bit T1 fonts
-\usepackage{amsmath,amssymb,amsthm,amsfonts}
-\usepackage{latexsym}
-\usepackage{mathtools}
-\usepackage{mathdots}
-\usepackage{bbm}
-
-\usepackage{braket}
-\usepackage{caption}
-\usepackage{subcaption}
-\usepackage{ellipsis}
-\usepackage{xcolor}
-\usepackage{textcomp}
-\usepackage{thmtools}
-\usepackage{thm-restate}
-\usepackage{cmap}
-\usepackage{mleftright}
+\usepackage{amsmath,amssymb,amsthm,amsfonts,latexsym,mathtools,mathdots,bbm,graphicx,float}
+\usepackage{braket,caption,subcaption,ellipsis,xcolor,textcomp,thmtools,thm-restate,cmap,mleftright}
+\usepackage[backref,colorlinks,citecolor=blue,bookmarks=true]{hyperref}
 \usepackage[nameinlink]{cleveref}
-
 \crefname{ineq}{inequality}{inequalities}
 \creflabelformat{ineq}{#2{\upshape(#1)}#3}
+\usepackage[letterpaper,margin=1in]{geometry}
 \usepackage{enumitem}
 
-\usepackage{hyperref}
-\usepackage{url}            % simple URL typesetting
-\usepackage{booktabs}       % professional-quality tables
-\usepackage{nicefrac}       % compact symbols for 1/2, etc.
-\usepackage{microtype}      % microtypography
-\usepackage{titlesec}
-\usepackage{overpic}
-\usepackage{titling}
-\usepackage{verbatim}
-\usepackage{float}
-\usepackage{enumerate}
-\usepackage{graphicx,wrapfig,lipsum}
-\usepackage{color}
-\usepackage{colortbl}
-\usepackage{makecell}
-\usepackage{multirow}
-\usepackage{tabularx}
-\usepackage{tikz}
-\usepackage{amsthm}
-\usepackage{subfigure}
-\usepackage{algpseudocode,algorithm,algorithmicx}
-\usepackage{cancel}
-\usepackage{listings}
+\usepackage{url,booktabs,nicefrac,microtype,titlesec,overpic,titling,verbatim,enumerate,wrapfig}
+\usepackage{lipsum,color,colortbl,makecell,multirow,tabularx,tikz,subfigure,algpseudocode,algorithm,algorithmicx,cancel,listings}
 
-\usepackage{lmodern}
-\usepackage{bbold}
-\usepackage{unicode-math}
+% \usepackage{lmodern}
+% \usepackage{bbold}
+% \usepackage{unicode-math}
 
-\setmathfont{latinmodern-math.otf}
-\setmathfont[range=\setminus]{XITSMath-Regular.otf}
+% \setmathfont{latinmodern-math.otf}
+% \setmathfont[range=\setminus]{XITSMath-Regular.otf}
 
 % Environments
 \declaretheorem[numberwithin=section]{theorem}
@@ -102,6 +67,8 @@
 \DeclareMathOperator{\Tr}{Tr}
 \DeclareMathOperator{\codim}{codim}
 \DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\st}{s.t.}
+\DeclareMathOperator{\rank}{rank}
 
 % number systems
 \newcommand{\R}{\mathbbm R}
@@ -350,15 +317,17 @@
 
 \newcommand{\true}{\texttt{True}}
 \newcommand{\false}{\texttt{False}}
+\newcommand{\T}{\intercal}
 
-\newcommand{\pr}[1]{\text{\bf Pr}\normalfont\lbrack #1 \rbrack} %probability
-\newcommand{\ex}[1]{\mathbb{E}\normalfont\lbrack #1 \rbrack}%expectation
-\newcommand{\exof}[2]{\mathbb{E}_{#1}\normalfont\lbrack #2 \rbrack}%expectation
-\newcommand{\bpr}[1]{\text{\bf Pr}\normalfont \Big[#1 \Big]} %probability
-\newcommand{\bex}[1]{\mathbb{E}\normalfont \Big[#1 \Big]}
-\newcommand{\ang}[1]{\langle #1 \rangle}
-
-\newcommand{\ind}[1]{\mathbb{I}\left\{#1\right\}}
+\newcommand{\pr}[1]{\text{\bf Pr}\normalfont\parens*{#1}} %probability
+\newcommand{\exof}[1]{\Ex\bracks*{#1}}%expectation
+\newcommand{\varof}[1]{\Var\bracks*{#1}}%expectation
+\newcommand{\ind}[1]{\mathbb{I}\braces*{#1}}
+% \newcommand{\exof}[2]{\mathbb{E}_{#1}\normalfont\lbrack #2 \rbrack}%expectation
+% \newcommand{\bpr}[1]{\text{\bf Pr}\normalfont \Big[#1 \Big]} %probability
+% \newcommand{\bex}[1]{\mathbb{E}\normalfont \Big[#1 \Big]}
+% \newcommand{\ang}[1]{\langle #1 \rangle}
+% \newcommand{\ind}[1]{\mathbb{I}\left\{#1\right\}}
 \newcommand{\m}{\mathfrak{m}}
 \newcommand{\p}{\mathfrak{p}}
 \newcommand{\PP}{\mathbb{P}}
