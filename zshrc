@@ -129,8 +129,8 @@ bindkey "^U" backward-kill-line
 
 # conda update -y -n base conda
 # conda install -y -c conda-forge mamba
-# mamba install -y -c conda-forge kitty
-# mamba install -y -c pytorch -c conda-forge pytorch torchvision torchaudio torchtext cudatoolkit=11.6
-# mamba install -y -c conda-forge gcc git lazygit exa bat make cmake nodejs=16
+# mamba update --all -y
+# mamba install -y -c pytorch pytorch torchvision torchaudio torchtext cudatoolkit=11.3
+# mamba install -y -c conda-forge kitty gcc git lazygit exa bat make cmake nodejs=16 bpytop nvtop snakeviz
 # mamba install -y -c conda-forge numpy matplotlib pandas scikit-learn scipy statsmodels scikit-learn-intelex seaborn jupyter jupyterlab neovim python-lsp-server black flake8 submitit ipython ipdb
 
