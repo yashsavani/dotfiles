@@ -68,7 +68,7 @@ antigen apply
 
 # eval "$(fasd --init auto)"
 
-export PATH=$PATH:/usr/local/sbin:${HOME}/.local/bin
+export PATH=$PATH:/usr/local/sbin:${HOME}/.local/bin:/usr/local/opt/openjdk/bin
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
@@ -130,9 +130,9 @@ bindkey "^U" backward-kill-line
 # conda update -y -n base conda
 # conda install -y -c conda-forge mamba
 # mamba update --all -y
-# mamba install -y -c conda-forge zsh kitty gcc git make cmake nodejs=16
+# mamba install -y -c conda-forge zsh kitty gcc gxx-linux64 git make cmake nodejs=16
 # mamba install -y -c conda-forge lazygit exa bat bpytop nvtop snakeviz
 # mamba install -y -c conda-forge jupyter jupyterlab neovim python-lsp-server black flake8 ipython ipdb
-# mamba install -y -c pytorch pytorch torchvision torchaudio torchtext cudatoolkit=11.3
 # mamba install -y -c conda-forge numpy matplotlib pandas scikit-learn scipy statsmodels scikit-learn-intelex seaborn submitit
+# mamba install -y -c conda-forge cudatoolkit pytorch torchvision jax
 

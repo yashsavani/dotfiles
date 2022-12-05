@@ -87,6 +87,8 @@ alt - g : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~ ki
 alt - z : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~ kitty +kitten ssh locus
 alt - d : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~ kitty +kitten ssh locus -t 'zsh -ic "devon"'
 alt - b : /Applications/Brave\ Browser.app/Contents/MacOS/Brave\ Browser
+alt - v : /Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron
+alt - c : /System/Applications/Clock.app/Contents/MacOS/Clock
 lctrl + alt - t : curr_display=$(yabai -m query --displays --display | jq -re ".index"); \
                   yabai -m space --create ; \
                   yabai -m space --focus $(yabai -m query --displays --display | jq -r '.spaces[-1]') ;\

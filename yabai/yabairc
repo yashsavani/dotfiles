@@ -11,17 +11,18 @@
 # see this wiki page for information:
 #  - https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)
 
-sudo yabai --load-sa
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
 
 # yabai -m config debug_output on
 
 # float system preferences. Most of these just diable Yabai form resizing them.
-yabai -m rule --add app="^System Preferences$" sticky=on layer=above manage=off
+yabai -m rule --add app="^System Settings$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Karabiner-Elements$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Karabiner-EventViewer$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Finder$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Keka$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Clock$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Alfred Preferences$" sticky=on layer=above manage=off
 yabai -m rule --add app="^Disk Utility$" sticky=on layer=above manage=off
 yabai -m rule --add app="^System Information$" sticky=on layer=above manage=off
