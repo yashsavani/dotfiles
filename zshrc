@@ -79,6 +79,7 @@ export EDITOR='nvim'
 
 # Compilation flags
 export ARCHFLAGS="-arch x86_64"
+export CLOUD="/Users/yashsavani/Library/Mobile Documents/com~apple~CloudDocs"
 
 alias ls="exa --icons"
 alias lls="ls"
@@ -94,6 +95,7 @@ alias sshfslocus="umount -f ~/dev/locus || sshfs -o kernel_cache,cache=yes,compr
 # alias setuptex="(find ~/.config/latex ! -name main.tex ! -name latex | xargs -I{} ln -sf {} .) && cp $HOME/.config/latex/main.tex ."
 alias setuptex="cp $HOME/.config/latex/main.tex . && cp $HOME/.config/latex/Makefile ."
 alias ssync="syncservers.sh"
+alias brave="open -a \"Brave Browser\""
 
 
 # >>> conda initialize >>>
@@ -131,7 +133,7 @@ bindkey "^U" backward-kill-line
 # conda install -y -c conda-forge mamba
 # mamba update --all -y
 # mamba install -y -c conda-forge zsh kitty gcc gxx-linux64 git make cmake nodejs=16
-# mamba install -y -c conda-forge lazygit exa bat bpytop nvtop snakeviz
+# mamba install -y -c conda-forge lazygit exa bat ytop nvtop snakeviz fd sd ripgrep
 # mamba install -y -c conda-forge jupyter jupyterlab neovim python-lsp-server black flake8 ipython ipdb
 # mamba install -y -c conda-forge numpy matplotlib pandas scikit-learn scipy statsmodels scikit-learn-intelex seaborn submitit
 # mamba install -y -c conda-forge cudatoolkit pytorch torchvision jax

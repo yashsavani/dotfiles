@@ -38,6 +38,9 @@ yabai -m rule --add app="^CiscoSparkHelper$" manage=off
 yabai -m rule --add app="^Logi Options$" manage=off
 yabai -m rule --add app="^Cisco Webex Start$" manage=off
 yabai -m rule --add app="^Private Internet Access$" manage=off
+yabai -m rule --add app="^Messages$" manage=off
+yabai -m rule --add app="^Mail$" manage=off
+yabai -m rule --add app="^FaceTime$" manage=off
 
 # global settings
 yabai -m config mouse_follows_focus          autoraise
