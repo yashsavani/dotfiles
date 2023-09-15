@@ -78,40 +78,38 @@ export LC_ALL=en_US.UTF-8
 export EDITOR='nvim'
 
 # Compilation flags
-export ARCHFLAGS="-arch x86_64"
+# export ARCHFLAGS="-arch x86_64"
 export CLOUD="/Users/yashsavani/Library/Mobile Documents/com~apple~CloudDocs"
 
 alias ls="exa --icons"
 alias lls="ls"
 alias ll="exa -lha --icons --group-directories-first --git"
 alias vim="nvim --startuptime /tmp/nvim-startuptime"
-alias updateall="brew update && brew upgrade && brew cleanup && antigen update && mamba update --all -y -c conda-forge -c pytorch"
-alias lg="lazygit"
 alias icat="kitty +kitten icat"
 alias slocus="kitty +kitten ssh locus"
 alias sgpu="kitty +kitten ssh localgpu"
-alias vconf="(cd ~/.config && vim)"
-alias sshfslocus="umount -f ~/dev/locus || sshfs -o kernel_cache,cache=yes,compression=no ysavani@locus.cs.cmu.edu:/home/ysavani ~/dev/locus"
-# alias setuptex="(find ~/.config/latex ! -name main.tex ! -name latex | xargs -I{} ln -sf {} .) && cp $HOME/.config/latex/main.tex ."
-alias setuptex="cp $HOME/.config/latex/main.tex . && cp $HOME/.config/latex/Makefile ."
-alias ssync="syncservers.sh"
 alias brave="open -a \"Brave Browser\""
-
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/usr/local/Caskroom/miniconda/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/opt/homebrew/Caskroom/mambaforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
-        . "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+    if [ -f "/opt/homebrew/Caskroom/mambaforge/base/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/Caskroom/mambaforge/base/etc/profile.d/conda.sh"
     else
-        export PATH="/usr/local/Caskroom/miniconda/base/bin:$PATH"
+        export PATH="/opt/homebrew/Caskroom/mambaforge/base/bin:$PATH"
     fi
 fi
 unset __conda_setup
+
+if [ -f "/opt/homebrew/Caskroom/mambaforge/base/etc/profile.d/mamba.sh" ]; then
+    . "/opt/homebrew/Caskroom/mambaforge/base/etc/profile.d/mamba.sh"
+fi
 # <<< conda initialize <<<
+eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)" # Brew Perl
+
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
@@ -127,14 +125,43 @@ bindkey "^H" backward-delete-char
 bindkey "^U" backward-kill-line
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# source /usr/share/doc/fzf/examples/key-bindings.zsh
 
-# conda update -y -n base conda
-# conda install -y -c conda-forge mamba
-# mamba update --all -y
-# mamba install -y -c conda-forge zsh kitty gcc gxx-linux64 git make cmake nodejs=16
-# mamba install -y -c conda-forge lazygit exa bat ytop nvtop snakeviz fd sd ripgrep
-# mamba install -y -c conda-forge jupyter jupyterlab neovim python-lsp-server black flake8 ipython ipdb
-# mamba install -y -c conda-forge numpy matplotlib pandas scikit-learn scipy statsmodels scikit-learn-intelex seaborn submitit
-# mamba install -y -c conda-forge cudatoolkit pytorch torchvision jax
+function setupenv_macos_arm {
+    mamba install -y \
+        jupyter jupyterlab neovim python-lsp-server black \
+        flake8 ipython ipdb numpy matplotlib pandas scikit-learn \
+        scipy statsmodels snakeviz seaborn submitit
+    mamba install -y -c pytorch \
+        pytorch::pytorch torchvision torchaudio \
+        lightning tensorboard einops wandb
+    mamba install -y jax
+} 
+
+function setupenv_linux {
+    mamba install -y -c conda-forge \
+        zsh kitty gcc gxx_linux-64 git make cmake nodejs \
+        lazygit exa bat ytop nvtop snakeviz fd sd ripgrep \
+        jupyter jupyterlab neovim python-lsp-server black \
+        flake8 ipython ipdb numpy matplotlib pandas scikit-learn \
+        scipy statsmodels scikit-learn-intelex seaborn submitit
+    mamba install -y -c pytorch -c nvidia -c conda-forge \
+        pytorch torchvision torchaudio pytorch-cuda=11.8 \
+        lightning tensorboard transformers diffusers einops wandb
+    pip3 install --upgrade "jax[cuda11_pip]" \
+        -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+}
+
+function createenv {
+    mamba create -y -n $1 python=3.10
+    mamba activate $1
+    setupenv_macos_arm
+}
+
+function updateall {
+    brew update
+    brew upgrade
+    brew cleanup
+    antigen update
+    mamba update -y conda mamba
+}
 

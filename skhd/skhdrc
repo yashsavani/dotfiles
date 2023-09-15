@@ -76,29 +76,38 @@
 # A REFERENCE ONLY, WHEN MAKING YOUR OWN CONFIGURATION..          #
 # ############################################################### #
 
-ctrl + alt + cmd - r : \
-    /usr/bin/env osascript <<< \
-        "display notification \"Restarting Yabai\" with title \"Yabai\""; \
-    launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
+# ctrl + alt + cmd - r : \
+#     /usr/bin/env osascript <<< \
+#         "display notification \"Restarting Yabai\" with title \"Yabai\""; \
+#     launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 
-alt - w : yabai -m window $(yabai -m query --windows --window | jq -re ".id") --close || yabai -m window --focus next
+# alt - w : yabai -m window $(yabai -m query --windows --window | jq -re ".id") --close || yabai -m window --focus next
 alt - t : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
 alt - g : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~ kitty +kitten ssh localgpu
-alt - z : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~ kitty +kitten ssh locus
-alt - d : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~ kitty +kitten ssh locus -t 'zsh -ic "devon"'
-alt - b : /Applications/Brave\ Browser.app/Contents/MacOS/Brave\ Browser
-alt - v : /Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron
-alt - c : /System/Applications/Clock.app/Contents/MacOS/Clock
-lctrl + alt - t : curr_display=$(yabai -m query --displays --display | jq -re ".index"); \
-                  yabai -m space --create ; \
-                  yabai -m space --focus $(yabai -m query --displays --display | jq -r '.spaces[-1]') ;\
-                  Applications/kitty.app/Contents/MacOS/kitty --single-instance  -d ~/.config;\
-                  yabai -m window --display $curr_display
-lctrl + alt - b : curr_display=$(yabai -m query -displays --display); \
-                  yabai -m space --create ; \
-                  yabai -m space --focus $(yabai -m query --displays --display | jq -r '.spaces[-1]') ;\
-                  /Applications/Brave\ Browser.app/Contents/MacOS/Brave\ Browser ;\
-                  yabai -m window --display $curr_display
+alt - c : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~ kitty +kitten ssh locus
+# alt - d : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~ kitty +kitten ssh locus -t 'zsh -ic "devon"'
+alt - s : open -a "Slack"
+alt - z : open -a "Zotero"
+alt - m : open -a "Messenger"
+alt - b : open -a "Brave Browser"
+alt - v : open -a "Visual Studio Code"
+alt - o : open -a "Clock"
+alt - r : open -a "Reminders"
+alt - 0x0C : open -a "Mail"
+alt - d : open -a "Calendar"
+alt - f : open -a "Finder" $HOME
+alt - 0x0D : open -a "System Preferences"
+alt - 0x0E : open -a "Spotify"
+# ctrl + alt - t : curr_display=$(yabai -m query --displays --display | jq -re ".index"); \
+#                   yabai -m space --create ; \
+#                   yabai -m space --focus $(yabai -m query --displays --display | jq -r '.spaces[-1]') ;\
+#                   Applications/kitty.app/Contents/MacOS/kitty --single-instance  -d ~/.config;\
+#                   yabai -m window --display $curr_display
+# ctrl + alt - b : curr_display=$(yabai -m query -displays --display); \
+#                   yabai -m space --create ; \
+#                   yabai -m space --focus $(yabai -m query --displays --display | jq -r '.spaces[-1]') ;\
+#                   /Applications/Brave\ Browser.app/Contents/MacOS/Brave\ Browser ;\
+#                   yabai -m window --display $curr_display
 
 # Navigation
 alt - h : yabai -m window --focus west
@@ -107,14 +116,14 @@ alt - k : yabai -m window --focus north
 alt - l : yabai -m window --focus east
 
 # Nav in stack
-alt - 0x0C : yabai -m window --focus stack.next || yabai -m window --focus stack.first
-shift + alt - 0x0C : yabai -m window --focus stack.prev || yabai -m window --focus stack.last
+# alt - 0x0C : yabai -m window --focus stack.next || yabai -m window --focus stack.first
+# shift + alt - 0x0C : yabai -m window --focus stack.prev || yabai -m window --focus stack.last
 
 # Unstack
-alt - space : yabai -m window --toggle float
+# alt - space : yabai -m window --toggle float
 
 # Rotate windows clockwise and anticlockwise
-alt - r         : yabai -m space --rotate 270
+# alt - r         : yabai -m space --rotate 270
 shift + alt - r : yabai -m space --rotate 90
 
 # Rotate on X and Y Axis
@@ -130,7 +139,7 @@ alt - f         : yabai -m window --toggle zoom-fullscreen
 shift + alt - f : yabai -m window --toggle native-fullscreen
 
 # Toggle Stackline appearance
-alt - b : hs -c 'stackline.config:toggle("appearance.showIcons")'
+# alt - b : hs -c 'stackline.config:toggle("appearance.showIcons")'
 
 # Moving windows
 shift + alt - h : yabai -m window --warp west
@@ -139,42 +148,42 @@ shift + alt - k : yabai -m window --warp north
 shift + alt - l : yabai -m window --warp east
 
 # Moving spaces
-lctrl + alt - l : yabai -m space --focus next 
-lctrl + alt - h : yabai -m space --focus prev
+ctrl + alt - l : yabai -m space --focus next 
+ctrl + alt - h : yabai -m space --focus prev
 
 # Create and destroy space
-lctrl + alt - n : yabai -m space --create ; \
+ctrl + alt - n : yabai -m space --create ; \
                   yabai -m space --focus $(yabai -m query --displays --display | jq -r '.spaces[-1]')
-lctrl + alt - w : next_space=$(yabai -m query --spaces --space | jq -r '.index'-1) ;\
+ctrl + alt - w : next_space=$(yabai -m query --spaces --space | jq -r '.index'-1) ;\
                   yabai -m space --destroy ; \
                   yabai -m space --focus $next_space
-shift + lctrl + alt - w : next_space=$(yabai -m query --spaces --space | jq -r '.index'-1) ;\
-                  for win in $(yabai -m query --windows --space | jq -re '.[].id') ; \
-                  do yabai -m window $win --close ; done ; \
-                  yabai -m space --destroy ; \
-                  yabai -m space --focus $next_space
+# shift + lctrl + alt - w : next_space=$(yabai -m query --spaces --space | jq -r '.index'-1) ;\
+#                   for win in $(yabai -m query --windows --space | jq -re '.[].id') ; \
+#                   do yabai -m window $win --close ; done ; \
+#                   yabai -m space --destroy ; \
+#                   yabai -m space --focus $next_space
 
-lctrl + alt - 0x12 : yabai -m space --focus $(yabai -m query --spaces --display 2 | jq '.[0].index')
-lctrl + alt - 0x13 : yabai -m space --focus $(yabai -m query --spaces --display 2 | jq '.[1].index')
-lctrl + alt - 0x14 : yabai -m space --focus $(yabai -m query --spaces --display 2 | jq '.[2].index')
-lctrl + alt - 0x15 : yabai -m space --focus $(yabai -m query --spaces --display 2 | jq '.[3].index')
-lctrl + alt - 0x16 : yabai -m space --focus $(yabai -m query --spaces --display 2 | jq '.[4].index')
+# lctrl + alt - 0x12 : yabai -m space --focus $(yabai -m query --spaces --display 2 | jq '.[0].index')
+# lctrl + alt - 0x13 : yabai -m space --focus $(yabai -m query --spaces --display 2 | jq '.[1].index')
+# lctrl + alt - 0x14 : yabai -m space --focus $(yabai -m query --spaces --display 2 | jq '.[2].index')
+# lctrl + alt - 0x15 : yabai -m space --focus $(yabai -m query --spaces --display 2 | jq '.[3].index')
+# lctrl + alt - 0x16 : yabai -m space --focus $(yabai -m query --spaces --display 2 | jq '.[4].index')
 
-shift + alt - 0x12 : yabai -m space --focus $(yabai -m query --spaces --display 1 | jq '.[0].index')
-shift + alt - 0x13 : yabai -m space --focus $(yabai -m query --spaces --display 1 | jq '.[1].index')
-shift + alt - 0x14 : yabai -m space --focus $(yabai -m query --spaces --display 1 | jq '.[2].index')
-shift + alt - 0x15 : yabai -m space --focus $(yabai -m query --spaces --display 1 | jq '.[3].index')
-shift + alt - 0x16 : yabai -m space --focus $(yabai -m query --spaces --display 1 | jq '.[4].index')
+# shift + alt - 0x12 : yabai -m space --focus $(yabai -m query --spaces --display 1 | jq '.[0].index')
+# shift + alt - 0x13 : yabai -m space --focus $(yabai -m query --spaces --display 1 | jq '.[1].index')
+# shift + alt - 0x14 : yabai -m space --focus $(yabai -m query --spaces --display 1 | jq '.[2].index')
+# shift + alt - 0x15 : yabai -m space --focus $(yabai -m query --spaces --display 1 | jq '.[3].index')
+# shift + alt - 0x16 : yabai -m space --focus $(yabai -m query --spaces --display 1 | jq '.[4].index')
 
 # Move focus container to workspace
-shift + lctrl + alt - n : yabai -m space --create && \
+shift + ctrl + alt - n : yabai -m space --create && \
                   yabai -m window --space $(yabai -m query --displays --display | jq -r '.spaces[-1]') && \
                   yabai -m space --focus $(yabai -m query --displays --display | jq -r '.spaces[-1]')
-shift + lctrl + alt - h : yabai -m window --space prev; yabai -m space --focus prev
-shift + lctrl + alt - l : yabai -m window --space next; yabai -m space --focus next
-lctrl + alt - return : (yabai -m window --display next; yabai -m display --focus next) || \
+shift + ctrl + alt - h : yabai -m window --space prev; yabai -m space --focus prev
+shift + ctrl + alt - l : yabai -m window --space next; yabai -m space --focus next
+ctrl + alt - return : (yabai -m window --display next; yabai -m display --focus next) || \
                        (yabai -m window --display first; yabai -m display --focus first)
-shift + lctrl + alt - return : (yabai -m window --display prev; yabai -m display --focus prev) || \
+shift + ctrl + alt - return : (yabai -m window --display prev; yabai -m display --focus prev) || \
                                (yabai -m window --display last; yabai -m display --focus last)
 # lctrl + alt - 1 : yabai -m window --space 1; yabai -m space --focus 1
 # lctrl + alt - 2 : yabai -m window --space 2; yabai -m space --focus 2

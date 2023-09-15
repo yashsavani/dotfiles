@@ -42,10 +42,10 @@ require("packer").startup(function(use)
     }
     use "justinmk/vim-sneak"
     -- use "ggandor/lightspeed.nvim"
-    use {
-        "henriquehbr/nvim-startup.lua",
-        config = function() require"nvim-startup".setup {} end
-    }
+    -- use {
+    --     "henriquehbr/nvim-startup.lua",
+    --     config = function() require"nvim-startup".setup {} end
+    -- }
     use {
         "lewis6991/gitsigns.nvim",
         requires = "nvim-lua/plenary.nvim",
