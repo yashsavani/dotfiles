@@ -80,7 +80,23 @@ export EDITOR='nvim'
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 export CLOUD="/Users/yashsavani/Library/Mobile Documents/com~apple~CloudDocs"
+export XDG_CONFIG_HOME=$HOME/.config
 
+# Load environment variables from the specified secrets file if it exists
+SECRETS_PATH="$XDG_CONFIG_HOME/secrets.env"
+if [ -f "$SECRETS_PATH" ]; then
+    while IFS= read -r line; do
+        # Remove leading whitespace from the line
+        line=$(echo "$line" | sed -e 's/^[[:space:]]*//')
+        
+        # Check if the line is empty or starts with a comment character '#'
+        if [ -n "$line" ] && ! [[ "$line" =~ ^\# ]]; then
+            export "$line"
+        fi
+    done < "$SECRETS_PATH"
+fi
+
+# Aliases
 alias ls="exa --icons"
 alias lls="ls"
 alias ll="exa -lha --icons --group-directories-first --git"
@@ -138,13 +154,13 @@ function setupenv_macos_arm {
 } 
 
 function setupenv_linux_x86_64 {
-    mamba install -y -c conda-forge \
+    mamba install -y \
         zsh kitty gcc gxx_linux-64 git make cmake nodejs \
         lazygit exa bat ytop nvtop snakeviz fd sd ripgrep \
         jupyter jupyterlab neovim python-lsp-server black \
         flake8 ipython ipdb numpy matplotlib pandas scikit-learn \
         scipy statsmodels scikit-learn-intelex seaborn submitit
-    mamba install -y -c pytorch -c nvidia -c conda-forge \
+    mamba install -y -c pytorch -c nvidia \
         pytorch torchvision torchaudio pytorch-cuda=11.8 \
         lightning tensorboard transformers diffusers einops wandb
     pip3 install --upgrade "jax[cuda11_pip]" \
