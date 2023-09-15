@@ -92,7 +92,9 @@ require("packer").startup(function(use)
     use {
         "ray-x/navigator.lua",
         requires = { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
-        config = function() require("navigator").setup {} end
+        config = function() require("navigator").setup {
+            keymaps = { { mode = 'i', key = '<C-K>', func = vim.lsp.buf.signature_help, desc = 'signature_help' }}
+        } end
     }
     use {
         "hrsh7th/nvim-cmp",

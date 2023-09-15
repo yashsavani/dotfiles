@@ -69,7 +69,7 @@ antigen apply
 # eval "$(fasd --init auto)"
 
 export GOPATH=$HOME/go
-export PATH=$HOME/bin:/usr/local/bin:$GOPATH/bin:$HOME/CUDA/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$GOPATH/bin:$HOME/CUDA/bin:$HOME/Applications:$PATH:/usr/local/sbin:${HOME}/.local/bin
 export LD_LIBRARY_PATH=$HOME/CUDA/lib64:$LD_LIBRARY_PATH
 
 # You may need to manually set your language environment
@@ -80,11 +80,10 @@ export LC_ALL=en_US.UTF-8
 export EDITOR='nvim'
 
 # Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-export CLOUD="/Users/yashsavani/Library/Mobile Documents/com~apple~CloudDocs"
+export ARCHFLAGS="-arch x86_64"
+# export CLOUD="/Users/yashsavani/Library/Mobile Documents/com~apple~CloudDocs"
 export XDG_CONFIG_HOME=$HOME/.config
 
-# Load environment variables from the specified secrets file if it exists
 SECRETS_PATH="$XDG_CONFIG_HOME/secrets.env"
 if [ -f "$SECRETS_PATH" ]; then
     while IFS= read -r line; do
@@ -97,6 +96,7 @@ if [ -f "$SECRETS_PATH" ]; then
         fi
     done < "$SECRETS_PATH"
 fi
+
 
 # Aliases
 alias ls="exa --icons"
@@ -137,23 +137,22 @@ alias pbcopy="kitty +kitten clipboard"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/ysavani/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/home/ysavani/mambaforge/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/ysavani/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/ysavani/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "/home/ysavani/mambaforge/etc/profile.d/conda.sh" ]; then
+        . "/home/ysavani/mambaforge/etc/profile.d/conda.sh"
     else
-        export PATH="/home/ysavani/miniconda3/bin:$PATH"
+        export PATH="/home/ysavani/mambaforge/bin:$PATH"
     fi
 fi
 unset __conda_setup
 
-if [ -f "/opt/homebrew/Caskroom/mambaforge/base/etc/profile.d/mamba.sh" ]; then
-    . "/opt/homebrew/Caskroom/mambaforge/base/etc/profile.d/mamba.sh"
+if [ -f "/home/ysavani/mambaforge/etc/profile.d/mamba.sh" ]; then
+    . "/home/ysavani/mambaforge/etc/profile.d/mamba.sh"
 fi
 # <<< conda initialize <<<
-eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)" # Brew Perl
 
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
@@ -189,12 +188,15 @@ function setupenv_linux_x86_64 {
         jupyter jupyterlab neovim python-lsp-server black \
         flake8 ipython ipdb numpy matplotlib pandas scikit-learn \
         scipy statsmodels scikit-learn-intelex seaborn submitit
-    mamba install -y -c pytorch -c nvidia \
+    mamba install -y -c "nvidia/label/cuda-11.8" cudatoolkit
+    mamba install -y -c conda-forge equinox optax
+    mamba install -y -c pytorch -c nvidia -c conda-forge \
         pytorch torchvision torchaudio pytorch-cuda=11.8 \
-        lightning tensorboard transformers diffusers einops wandb
-    pip3 install --upgrade "jax[cuda11_pip]" \
-        -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
-}
+        lightning tensorboard einops wandb
+    mamba install -y -c conda-forge transformers diffusers accelerate
+    # pip3 install --upgrade "jax[cuda11_pip]" \
+    #     -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+} 
 
 function createenv {
     mamba create -y -n $1 python=3.10
@@ -203,7 +205,11 @@ function createenv {
 }
 
 function updateall {
+    sudo apt update
+    sudo apt upgrade
+    sudo apt autoremove
     antigen update
-    mamba update -y conda mamba
+    mamba update -y -c conda-forge conda mamba
+    # mamba update --all -y -c pytorch -c nvidia -c conda-forge
 }
 
