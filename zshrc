@@ -137,7 +137,7 @@ function setupenv_macos_arm {
     mamba install -y jax
 } 
 
-function setupenv_linux {
+function setupenv_linux_x86_64 {
     mamba install -y -c conda-forge \
         zsh kitty gcc gxx_linux-64 git make cmake nodejs \
         lazygit exa bat ytop nvtop snakeviz fd sd ripgrep \
