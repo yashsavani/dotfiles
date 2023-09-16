@@ -109,7 +109,7 @@ alias sgpu="kitty +kitten ssh localgpu"
 alias brave="open -a \"Brave Browser\""
 alias setuptex="cp $XDG_CACHE_HOME/latex/main.tex ."
 alias icat="kitty +kitten icat"
-alias devrun='srun --mem=20G --gres gpu:1 --time=2-00:00:00 --pty /opt/zsh/5.8/bin/zsh'
+alias devrun='srun --mem=20G --gres gpu:1 --exclude=locus-1-13 --time=2-00:00:00 --pty /opt/zsh/5.8/bin/zsh'
 function devon {
     session="workspace"
     window="dev"
