@@ -68,7 +68,9 @@ antigen apply
 
 # eval "$(fasd --init auto)"
 
-export PATH=$PATH:/usr/local/sbin:${HOME}/.local/bin:/usr/local/opt/openjdk/bin
+export GOPATH=$HOME/go
+export PATH=$HOME/bin:/usr/local/bin:$GOPATH/bin:$HOME/CUDA/bin:$PATH
+export LD_LIBRARY_PATH=$HOME/CUDA/lib64:$LD_LIBRARY_PATH
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
@@ -106,17 +108,43 @@ alias slocus="kitty +kitten ssh locus"
 alias sgpu="kitty +kitten ssh localgpu"
 alias brave="open -a \"Brave Browser\""
 alias setuptex="cp $XDG_CACHE_HOME/latex/main.tex ."
+alias icat="kitty +kitten icat"
+alias devrun='srun --mem=20G --gres gpu:1 --time=2-00:00:00 --pty /opt/zsh/5.8/bin/zsh'
+function devon {
+    session="workspace"
+    window="dev"
+    tmux has-session -t $session 2>/dev/null
+
+    if [ $? != 0 ]; then
+        tmux new-session -d -s $session -n $window "$(alias devrun | cut -d\' -f2)"
+        # tmux send-keys -t $session:$window "devrun" C-m
+    fi
+    tmux attach-session -t $session
+}
+# alias devon="tmux new-session -s $session \"srun --exclude 'locus-1-[21,25,29]' --mem=20G --gres gpu:1 --time=2-00:00:00 --pty /opt/zsh/5.8/bin/zsh\""
+alias sq='squeue -o "%.9i %.9P %.30j %.8u %.2t %.10M %.6D %.25S %.25e %.10N"'
+alias sqme='squeue -u `whoami`'
+alias sqservers='squeue -u `whoami` -o "%.10N"'
+function watcha {
+   watch -n 0.5 $(alias "$1" | cut -d\' -f2)
+}
+alias rsyncd="$HOME/.config/rsyncd.sh"
+function sshl {
+    ssh locus-$1-$2 /opt/zsh/5.8/bin/zsh
+}
+alias pbcopy="kitty +kitten clipboard"
+
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/homebrew/Caskroom/mambaforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/home/ysavani/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/opt/homebrew/Caskroom/mambaforge/base/etc/profile.d/conda.sh" ]; then
-        . "/opt/homebrew/Caskroom/mambaforge/base/etc/profile.d/conda.sh"
+    if [ -f "/home/ysavani/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/ysavani/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/opt/homebrew/Caskroom/mambaforge/base/bin:$PATH"
+        export PATH="/home/ysavani/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
@@ -171,13 +199,10 @@ function setupenv_linux_x86_64 {
 function createenv {
     mamba create -y -n $1 python=3.10
     mamba activate $1
-    setupenv_macos_arm
+    setupenv_linux_x86_64
 }
 
 function updateall {
-    brew update
-    brew upgrade
-    brew cleanup
     antigen update
     mamba update -y conda mamba
 }

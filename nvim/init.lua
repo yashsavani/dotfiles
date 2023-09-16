@@ -377,6 +377,7 @@ map("n", "<C-k>", [[:cprev<CR>]], noremap_silent)
 -- Ultisnips Edit
 map("n", "<Leader>es", [[:UltiSnipsEdit<CR>]], noremap_silent)
 
+
 -- Autocommands
 vim.api.nvim_exec([[
   colorscheme onedark
