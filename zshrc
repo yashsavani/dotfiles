@@ -177,8 +177,10 @@ function createenv {
 function updateall {
     brew update
     brew upgrade
+    brew autoremove
     brew cleanup
     antigen update
     mamba update -y conda mamba
+    mamba clean -y --all
 }
 
