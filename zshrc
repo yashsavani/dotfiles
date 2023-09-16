@@ -68,9 +68,9 @@ antigen apply
 
 # eval "$(fasd --init auto)"
 
-export GOPATH=$HOME/go
-export PATH=$HOME/bin:/usr/local/bin:$GOPATH/bin:$HOME/CUDA/bin:$HOME/Applications:$PATH:/usr/local/sbin:${HOME}/.local/bin
-export LD_LIBRARY_PATH=$HOME/CUDA/lib64:$LD_LIBRARY_PATH
+# export PATH=$HOME/go/bin:$HOME/CUDA/bin:$HOME/Applications:$PATH
+export PATH=$HOME/Applications:$PATH
+# export LD_LIBRARY_PATH=$HOME/CUDA/lib64:$LD_LIBRARY_PATH
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
@@ -183,12 +183,12 @@ function setupenv_macos_arm {
 
 function setupenv_linux_x86_64 {
     mamba install -y \
-        zsh kitty gcc gxx_linux-64 git make cmake nodejs \
+        zsh kitty gcc gxx_linux-64 git git-lfs make cmake nodejs \
         lazygit exa bat ytop nvtop snakeviz fd sd ripgrep \
         jupyter jupyterlab neovim python-lsp-server black \
         flake8 ipython ipdb numpy matplotlib pandas scikit-learn \
         scipy statsmodels scikit-learn-intelex seaborn submitit
-    mamba install -y -c "nvidia/label/cuda-11.8" cudatoolkit
+    mamba install -y -c "nvidia/label/cuda-11.8.0" cuda-toolkit
     mamba install -y equinox optax diffrax
     mamba install -y -c pytorch -c nvidia -c conda-forge \
         pytorch torchvision torchaudio pytorch-cuda=11.8 \
@@ -199,6 +199,7 @@ function setupenv_linux_x86_64 {
 } 
 
 function createenv {
+    mamba update -y conda mamba
     mamba create -y -n $1 python=3.10
     mamba activate $1
     setupenv_linux_x86_64
@@ -208,8 +209,10 @@ function updateall {
     sudo apt update
     sudo apt upgrade
     sudo apt autoremove
+    sudo apt autoclean
     antigen update
     mamba update -y conda mamba
+    mamba clean -y --all
     # mamba update --all -y -c pytorch -c nvidia -c conda-forge
 }
 
