@@ -189,11 +189,11 @@ function setupenv_linux_x86_64 {
         flake8 ipython ipdb numpy matplotlib pandas scikit-learn \
         scipy statsmodels scikit-learn-intelex seaborn submitit
     mamba install -y -c "nvidia/label/cuda-11.8" cudatoolkit
-    mamba install -y -c conda-forge equinox optax
+    mamba install -y equinox optax diffrax
     mamba install -y -c pytorch -c nvidia -c conda-forge \
         pytorch torchvision torchaudio pytorch-cuda=11.8 \
         lightning tensorboard einops wandb
-    mamba install -y -c conda-forge transformers diffusers accelerate
+    mamba install -y transformers diffusers accelerate
     # pip3 install --upgrade "jax[cuda11_pip]" \
     #     -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 } 
@@ -209,7 +209,7 @@ function updateall {
     sudo apt upgrade
     sudo apt autoremove
     antigen update
-    mamba update -y -c conda-forge conda mamba
+    mamba update -y conda mamba
     # mamba update --all -y -c pytorch -c nvidia -c conda-forge
 }
 
