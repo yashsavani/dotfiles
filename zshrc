@@ -105,6 +105,7 @@ alias icat="kitty +kitten icat"
 alias slocus="kitty +kitten ssh locus"
 alias sgpu="kitty +kitten ssh localgpu"
 alias brave="open -a \"Brave Browser\""
+alias setuptex="cp $XDG_CACHE_HOME/latex/main.tex ."
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
