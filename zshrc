@@ -109,7 +109,8 @@ alias sgpu="kitty +kitten ssh localgpu"
 alias brave="open -a \"Brave Browser\""
 alias setuptex="cp $XDG_CACHE_HOME/latex/main.tex ."
 alias icat="kitty +kitten icat"
-alias devrun='srun --mem=20G --gres gpu:1 --exclude=locus-1-13 --time=2-00:00:00 --pty /opt/zsh/5.8/bin/zsh'
+alias devrun='srun --mem=20G --gres=gpu:1 --exclude=locus-1-13 --time=2-00:00:00 --pty /opt/zsh/5.8/bin/zsh'
+alias devbig='srun --mem=20G --gres=gpu:A6000:1 --exclude=locus-1-13 --time=2-00:00:00 --pty /opt/zsh/5.8/bin/zsh'
 function devon {
     session="workspace"
     window="dev"
@@ -206,10 +207,16 @@ function createenv {
 }
 
 function updateall {
-    sudo apt update
-    sudo apt upgrade
-    sudo apt autoremove
-    sudo apt autoclean
+    hostname=$(hostname)
+    if [[ $hostname == locus* ]]; then
+        echo "Updating on locus"
+    else
+        echo "Updating on localgpu"
+        sudo apt update
+        sudo apt upgrade
+        sudo apt autoremove
+        sudo apt autoclean
+    fi
     antigen update
     mamba update -y conda mamba
     mamba clean -y --all
