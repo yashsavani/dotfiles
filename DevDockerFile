@@ -7,7 +7,7 @@ RUN apt-get update && \
     locale-gen en_US.UTF-8 && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         sudo wget curl git build-essential software-properties-common && \
-    add-apt-repository -y ppa:neovim-ppa/stable && \
+    add-apt-repository -y ppa:neovim-ppa/unstable && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y neovim && \
     apt-get autoremove && \
@@ -55,6 +55,11 @@ RUN curl -L git.io/antigen > antigen.zsh
 # Source zshrc to install zsh plugins
 SHELL ["opt/conda/bin/zsh", "-c"]
 RUN source /home/user/.zshrc
+
+# Install Packer for neovim
+RUN git clone --depth 1 https://github.com/wbthomason/packer.nvim \
+    /home/user/.local/share/nvim/site/pack/packer/start/packer.nvim
+RUN nvim --headless +PackerInstall +qa
 
 # Default command to run zsh
 CMD [ "opt/conda/bin/zsh" ]

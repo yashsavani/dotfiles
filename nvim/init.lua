@@ -1,10 +1,16 @@
 -- PACKER PLUGINS
-local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-
-
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    packer_bootstrap = vim.fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
 end
+
+local packer_bootstrap = ensure_packer()
 
 require("packer").startup(function(use)
     use "wbthomason/packer.nvim"
@@ -74,19 +80,7 @@ require("packer").startup(function(use)
     }
     use { "nvim-treesitter/nvim-treesitter-textobjects", after="nvim-treesitter" }
     use { "nvim-treesitter/nvim-treesitter-refactor" , after="nvim-treesitter" }
-    use {
-        "lukas-reineke/indent-blankline.nvim",
-        config = function()
-            vim.opt.list = true
-            vim.opt.listchars:append("space:⋅")
-            vim.opt.listchars:append("eol:↴")
-            require("indent_blankline").setup {
-                space_char_blankline = " ",
-                show_current_context = true,
-                show_current_context_start = true,
-            }
-        end
-    }
+    use { "lukas-reineke/indent-blankline.nvim", config = function() require("ibl").setup {} end }
     use "neovim/nvim-lspconfig"
     use {
         "ray-x/navigator.lua",
