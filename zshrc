@@ -57,8 +57,11 @@ antigen bundle zsh-users/zsh-history-substring-search
 antigen bundle unixorn/fzf-zsh-plugin@main
 
 # Load the theme
-# antigen theme robbyrussell
-antigen theme git@github.com:romkatv/powerlevel10k.git
+if [[ "$ENV_TYPE" == "docker" ]]; then
+    antigen theme robbyrussell
+else
+    antigen theme romkatv/powerlevel10k
+fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
