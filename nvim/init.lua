@@ -222,9 +222,13 @@ end
 
 opt("o", "termguicolors", true) -- set term gui colors most terminals support this.
 opt("o", "background", "dark") -- Dark Background
--- vim.cmd [[colorscheme onedark]]
-vim.g.onedark_terminal_italics = 2
-
+if pcall(vim.cmd, "colorscheme onedark") then
+  vim.g.onedark_terminal_italics = 2
+  vim.cmd("colorscheme onedark")
+else
+    -- fallback
+    vim.cmd("colorscheme default")
+end
 vim.g.tex_flavor = "latex"
 
 vim.o.shortmess = vim.o.shortmess .. "c"
@@ -375,7 +379,6 @@ map("n", "<Leader>es", [[:UltiSnipsEdit<CR>]], noremap_silent)
 
 -- Autocommands
 vim.api.nvim_exec([[
-  colorscheme onedark
   filetype plugin indent on
   au BufEnter term://* setlocal nonumber | setlocal norelativenumber | set laststatus=0
   au BufRead,BufNewFile *.lua set formatoptions-=cro

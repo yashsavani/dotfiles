@@ -139,6 +139,7 @@ function sshl {
 alias pbcopy="kitty +kitten clipboard"
 
 
+if [[ "$ENV_TYPE" != "docker" ]]; then
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/home/ysavani/mambaforge/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -157,6 +158,7 @@ if [ -f "/home/ysavani/mambaforge/etc/profile.d/mamba.sh" ]; then
     . "/home/ysavani/mambaforge/etc/profile.d/mamba.sh"
 fi
 # <<< conda initialize <<<
+fi
 
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
