@@ -276,7 +276,7 @@ opt("o", "completeopt", "menu,menuone,noselect") -- To allow compe
 opt("o", "lazyredraw", true)
 -- opt("o", "foldmethod", "expr")
 -- opt("w", "foldexpr", "nvim_treesitter#foldexpr()")
-opt("w", "foldminlines", 10)
+-- opt("w", "foldminlines", 10)
 opt("w", "linebreak", true)
 
 -- KEY-MAPPINGS
