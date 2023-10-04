@@ -59,7 +59,7 @@ RUN source /home/user/.zshrc
 # Install Packer for neovim
 RUN git clone --depth 1 https://github.com/wbthomason/packer.nvim \
     /home/user/.local/share/nvim/site/pack/packer/start/packer.nvim
-RUN nvim --headless -c 'autocmd VimEnter * PackerInstall' -c 'autocmd VimEnter * qa'
+RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
 # Default command to run zsh
 CMD [ "opt/conda/bin/zsh" ]
