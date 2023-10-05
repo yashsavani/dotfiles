@@ -192,6 +192,7 @@ require("packer").startup(function(use)
     }
     use { "Vimjas/vim-python-pep8-indent" }
     use { "github/copilot.vim" }
+    use { "ojroques/nvim-osc52" }
 --     use {
 --         "folke/which-key.nvim",
 --         config = function() require("which-key").setup {} end
@@ -320,8 +321,11 @@ map("n", "<C-k>", [[<C-w>k]], noremap_silent)
 map("v", "<", [[<gv]], noremap_silent)
 map("v", ">", [[>gv]], noremap_silent)
 
--- Paste without replacing clipboard
+-- Cipboard
 map("n", "<Leader>p", [["_dP]], noremap_silent)
+vim.keymap.set('n', '<leader>c', require('osc52').copy_operator, {expr = true})
+vim.keymap.set('n', '<leader>cc', '<leader>c_', {remap = true})
+vim.keymap.set('v', '<leader>c', require('osc52').copy_visual)
 
 -- Switch buffer.
 map("n", "<Leader><TAB>", [[:BufferNext<CR>]], noremap_silent) -- TAB in normal mode will move to the next buffer.

@@ -61,10 +61,9 @@ if [[ "$ENV_TYPE" == "docker" ]]; then
     antigen theme robbyrussell
 else
     antigen theme romkatv/powerlevel10k
+    # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+    [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 fi
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Tell Antigen that you're done.
 antigen apply
@@ -102,16 +101,24 @@ fi
 
 
 # Aliases
-alias ls="exa --icons"
-alias lls="ls"
-alias ll="exa -lha --icons --group-directories-first --git"
-alias vim="nvim --startuptime /tmp/nvim-startuptime"
 alias icat="kitty +kitten icat"
+alias kls="\ls --hyperlink=auto"
+alias kbcopy="kitten clipboard"
+alias kbpaste="kitten clipboard --get-clipboard"
+
+alias lls="\ls"
+alias ls="exa --icons"
+alias ll="exa -lha --icons --group-directories-first --git"
+
+alias vim="nvim --startuptime /tmp/nvim-startuptime"
+
+alias brave="open -a \"Brave Browser\""
+
+alias setuptex="cp $XDG_CACHE_HOME/latex/main.tex ."
+
 alias slocus="kitty +kitten ssh locus"
 alias sgpu="kitty +kitten ssh localgpu"
-alias brave="open -a \"Brave Browser\""
-alias setuptex="cp $XDG_CACHE_HOME/latex/main.tex ."
-alias icat="kitty +kitten icat"
+
 alias devrun='srun --mem=20G --gres=gpu:1 --exclude=locus-1-13 --time=2-00:00:00 --pty /opt/zsh/5.8/bin/zsh'
 alias devbig='srun --mem=20G --gres=gpu:A6000:1 --exclude=locus-1-13 --time=2-00:00:00 --pty /opt/zsh/5.8/bin/zsh'
 function devon {
@@ -132,11 +139,10 @@ alias sqservers='squeue -u `whoami` -o "%.10N"'
 function watcha {
    watch -n 0.5 $(alias "$1" | cut -d\' -f2)
 }
-alias rsyncd="$HOME/.config/rsyncd.sh"
+# alias rsyncd="$HOME/.config/rsyncd.sh"
 function sshl {
     ssh locus-$1-$2 /opt/zsh/5.8/bin/zsh
 }
-alias pbcopy="kitty +kitten clipboard"
 
 
 if [[ "$ENV_TYPE" != "docker" ]]; then
