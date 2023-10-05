@@ -324,9 +324,13 @@ map("v", ">", [[>gv]], noremap_silent)
 
 -- Cipboard
 map("n", "<Leader>p", [["_dP]], noremap_silent)
-vim.keymap.set('n', '<leader>c', require('osc52').copy_operator, {expr = true})
-vim.keymap.set('n', '<leader>cc', '<leader>c_', {remap = true})
-vim.keymap.set('v', '<leader>c', require('osc52').copy_visual)
+local ok, osc52 = pcall(require, 'osc52')
+if ok then
+    -- The module was successfully loaded
+    vim.keymap.set('n', '<leader>c', require('osc52').copy_operator, {expr = true})
+    vim.keymap.set('n', '<leader>cc', '<leader>c_', {remap = true})
+    vim.keymap.set('v', '<leader>c', require('osc52').copy_visual)
+end
 
 -- Switch buffer.
 map("n", "<Leader><TAB>", [[:BufferNext<CR>]], noremap_silent) -- TAB in normal mode will move to the next buffer.
