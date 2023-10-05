@@ -103,8 +103,8 @@ fi
 # Aliases
 alias icat="kitty +kitten icat"
 alias kls="\ls --hyperlink=auto"
-alias kbcopy="kitten clipboard"
-alias kbpaste="kitten clipboard --get-clipboard"
+alias kbcopy="kitty +kitten clipboard"
+alias kbpaste="kitty +kitten clipboard --get-clipboard"
 
 alias lls="\ls"
 alias ls="exa --icons"
