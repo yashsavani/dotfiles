@@ -1,0 +1,92 @@
+#
+# .zshrc is sourced in interactive shells.
+# It should contain commands to set up aliases,
+# functions, options, key bindings, etc.
+#
+autoload -U compinit
+compinit
+
+# allow tab completions in the middle of a word
+setopt COMPLETE_IN_WORD
+
+source $HOME/antigen.zsh
+
+# Load the oh-my-zsh's library
+antigen use oh-my-zsh
+
+# Bundles from the default repo (robbyrussell's oh-my-zsh)
+antigen bundle git
+antigen bundle pip
+antigen bundle command-not-found
+
+# Zsh Users bundles
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-history-substring-search
+antigen bundle unixorn/fzf-zsh-plugin@main
+
+# Load the theme
+antigen theme robbyrussell
+
+# Tell Antigen that you're done.
+antigen apply
+
+# You may need to manually set your language environment
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+export EDITOR='nvim'
+
+# Compilation flags
+export ARCHFLAGS="-arch x86_64"
+# export CLOUD="/Users/yashsavani/Library/Mobile Documents/com~apple~CloudDocs"
+export XDG_CONFIG_HOME=$HOME/.config
+
+SECRETS_PATH="$XDG_CONFIG_HOME/secrets.env"
+if [ -f "$SECRETS_PATH" ]; then
+    while IFS= read -r line; do
+        # Remove leading whitespace from the line
+        line=$(echo "$line" | sed -e 's/^[[:space:]]*//')
+        
+        # Check if the line is empty or starts with a comment character '#'
+        if [ -n "$line" ] && ! [[ "$line" =~ ^\# ]]; then
+            export "$line"
+        fi
+    done < "$SECRETS_PATH"
+fi
+
+
+# Aliases
+alias icat="kitty +kitten icat"
+alias kls="\ls --hyperlink=auto"
+alias kbcopy="kitten clipboard"
+alias kbpaste="kitten clipboard --get-clipboard"
+
+alias vim="nvim --startuptime /tmp/nvim-startuptime"
+
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt INC_APPEND_HISTORY_TIME
+
+bindkey -e
+
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey "^?" backward-delete-char
+bindkey "^W" backward-kill-word 
+bindkey "^H" backward-delete-char
+bindkey "^U" backward-kill-line
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+function updateall {
+    sudo apt update
+    sudo apt upgrade
+    sudo apt autoremove
+    sudo apt autoclean
+    antigen update
+}
+
