@@ -218,7 +218,8 @@ vim.g.maplocalleader = " "
 if vim.env.CONDA_PREFIX then
     vim.g.python3_host_prog = vim.env.CONDA_PREFIX .. "/bin/python"
 else
-    vim.g.python3_host_prog = "/usr/local/Caskroom/miniconda/base/bin/python"
+    -- vim.g.python3_host_prog = "/usr/local/Caskroom/miniconda/base/bin/python"
+    vim.g.python3_host_prog = "/usr/bin/python3"
 end
 
 opt("o", "termguicolors", true) -- set term gui colors most terminals support this.
