@@ -1,10 +1,16 @@
 -- PACKER PLUGINS
-local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-
-
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-    packer_bootstrap = vim.fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
 end
+
+local packer_bootstrap = ensure_packer()
 
 require("packer").startup(function(use)
     use "wbthomason/packer.nvim"
@@ -55,10 +61,9 @@ require("packer").startup(function(use)
     }
     use {
         "nvim-treesitter/nvim-treesitter",
-        run = ":TSUpdate",
         config = function()
             require "nvim-treesitter.configs".setup {
-                ensure_installed = { "python", "c", "lua", "latex" },
+                ensure_installed = { "python", "c", "lua", "latex", "bash" },
                 highlight = { enable = true },
                 indent = { enable = true, disable = {"python", } },
                 incremental_selection = {
@@ -75,24 +80,14 @@ require("packer").startup(function(use)
     }
     use { "nvim-treesitter/nvim-treesitter-textobjects", after="nvim-treesitter" }
     use { "nvim-treesitter/nvim-treesitter-refactor" , after="nvim-treesitter" }
-    use {
-        "lukas-reineke/indent-blankline.nvim",
-        config = function()
-            vim.opt.list = true
-            vim.opt.listchars:append("space:⋅")
-            vim.opt.listchars:append("eol:↴")
-            require("indent_blankline").setup {
-                space_char_blankline = " ",
-                show_current_context = true,
-                show_current_context_start = true,
-            }
-        end
-    }
+    use { "lukas-reineke/indent-blankline.nvim", config = function() require("ibl").setup {} end }
     use "neovim/nvim-lspconfig"
     use {
         "ray-x/navigator.lua",
         requires = { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
-        config = function() require("navigator").setup {} end
+        config = function() require("navigator").setup {
+            keymaps = { { mode = 'i', key = '<C-K>', func = vim.lsp.buf.signature_help, desc = 'signature_help' }}
+        } end
     }
     use {
         "hrsh7th/nvim-cmp",
@@ -197,6 +192,7 @@ require("packer").startup(function(use)
     }
     use { "Vimjas/vim-python-pep8-indent" }
     use { "github/copilot.vim" }
+    use { "ojroques/nvim-osc52" }
 --     use {
 --         "folke/which-key.nvim",
 --         config = function() require("which-key").setup {} end
@@ -222,14 +218,19 @@ vim.g.maplocalleader = " "
 if vim.env.CONDA_PREFIX then
     vim.g.python3_host_prog = vim.env.CONDA_PREFIX .. "/bin/python"
 else
-    vim.g.python3_host_prog = "/usr/local/Caskroom/miniconda/base/bin/python"
+    -- vim.g.python3_host_prog = "/usr/local/Caskroom/miniconda/base/bin/python"
+    vim.g.python3_host_prog = "/usr/bin/python3"
 end
 
 opt("o", "termguicolors", true) -- set term gui colors most terminals support this.
 opt("o", "background", "dark") -- Dark Background
--- vim.cmd [[colorscheme onedark]]
-vim.g.onedark_terminal_italics = 2
-
+if pcall(vim.cmd, "colorscheme onedark") then
+  vim.g.onedark_terminal_italics = 2
+  vim.cmd("colorscheme onedark")
+else
+    -- fallback
+    vim.cmd("colorscheme default")
+end
 vim.g.tex_flavor = "latex"
 
 vim.o.shortmess = vim.o.shortmess .. "c"
@@ -274,7 +275,7 @@ opt("o", "completeopt", "menu,menuone,noselect") -- To allow compe
 opt("o", "lazyredraw", true)
 -- opt("o", "foldmethod", "expr")
 -- opt("w", "foldexpr", "nvim_treesitter#foldexpr()")
-opt("w", "foldminlines", 10)
+-- opt("w", "foldminlines", 10)
 opt("w", "linebreak", true)
 
 -- KEY-MAPPINGS
@@ -321,8 +322,15 @@ map("n", "<C-k>", [[<C-w>k]], noremap_silent)
 map("v", "<", [[<gv]], noremap_silent)
 map("v", ">", [[>gv]], noremap_silent)
 
--- Paste without replacing clipboard
+-- Cipboard
 map("n", "<Leader>p", [["_dP]], noremap_silent)
+local ok, osc52 = pcall(require, 'osc52')
+if ok then
+    -- The module was successfully loaded
+    vim.keymap.set('n', '<leader>c', require('osc52').copy_operator, {expr = true})
+    vim.keymap.set('n', '<leader>cc', '<leader>c_', {remap = true})
+    vim.keymap.set('v', '<leader>c', require('osc52').copy_visual)
+end
 
 -- Switch buffer.
 map("n", "<Leader><TAB>", [[:BufferNext<CR>]], noremap_silent) -- TAB in normal mode will move to the next buffer.
@@ -377,9 +385,9 @@ map("n", "<C-k>", [[:cprev<CR>]], noremap_silent)
 -- Ultisnips Edit
 map("n", "<Leader>es", [[:UltiSnipsEdit<CR>]], noremap_silent)
 
+
 -- Autocommands
 vim.api.nvim_exec([[
-  colorscheme onedark
   filetype plugin indent on
   au BufEnter term://* setlocal nonumber | setlocal norelativenumber | set laststatus=0
   au BufRead,BufNewFile *.lua set formatoptions-=cro

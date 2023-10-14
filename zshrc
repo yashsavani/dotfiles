@@ -57,18 +57,22 @@ antigen bundle zsh-users/zsh-history-substring-search
 antigen bundle unixorn/fzf-zsh-plugin@main
 
 # Load the theme
-# antigen theme robbyrussell
-antigen theme git@github.com:romkatv/powerlevel10k.git
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+if [[ "$ENV_TYPE" == "docker" ]]; then
+    antigen theme robbyrussell
+else
+    antigen theme romkatv/powerlevel10k
+    # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+    [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+fi
 
 # Tell Antigen that you're done.
 antigen apply
 
 # eval "$(fasd --init auto)"
 
-export PATH=$PATH:/usr/local/sbin:${HOME}/.local/bin:/usr/local/opt/openjdk/bin
+# export PATH=$HOME/go/bin:$HOME/CUDA/bin:$HOME/Applications:$PATH
+export PATH=$HOME/Applications:$PATH
+# export LD_LIBRARY_PATH=$HOME/CUDA/lib64:$LD_LIBRARY_PATH
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
@@ -78,11 +82,10 @@ export LC_ALL=en_US.UTF-8
 export EDITOR='nvim'
 
 # Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-export CLOUD="/Users/yashsavani/Library/Mobile Documents/com~apple~CloudDocs"
+export ARCHFLAGS="-arch x86_64"
+# export CLOUD="/Users/yashsavani/Library/Mobile Documents/com~apple~CloudDocs"
 export XDG_CONFIG_HOME=$HOME/.config
 
-# Load environment variables from the specified secrets file if it exists
 SECRETS_PATH="$XDG_CONFIG_HOME/secrets.env"
 if [ -f "$SECRETS_PATH" ]; then
     while IFS= read -r line; do
@@ -96,36 +99,72 @@ if [ -f "$SECRETS_PATH" ]; then
     done < "$SECRETS_PATH"
 fi
 
+
 # Aliases
-alias ls="exa --icons"
-alias lls="ls"
-alias ll="exa -lha --icons --group-directories-first --git"
-alias vim="nvim --startuptime /tmp/nvim-startuptime"
 alias icat="kitty +kitten icat"
-alias slocus="kitty +kitten ssh locus"
-alias sgpu="kitty +kitten ssh localgpu"
+alias kls="\ls --hyperlink=auto"
+alias kbcopy="kitty +kitten clipboard"
+alias kbpaste="kitty +kitten clipboard --get-clipboard"
+
+alias lls="\ls"
+alias ls="exa --icons"
+alias ll="exa -lha --icons --group-directories-first --git"
+
+alias vim="nvim --startuptime /tmp/nvim-startuptime"
+
 alias brave="open -a \"Brave Browser\""
+
 alias setuptex="cp $XDG_CACHE_HOME/latex/main.tex ."
 
+alias slocus="kitty +kitten ssh locus"
+alias sgpu="kitty +kitten ssh localgpu"
+
+alias devrun='srun --mem=20G --gres=gpu:1 --exclude=locus-1-13 --time=2-00:00:00 --pty /opt/zsh/5.8/bin/zsh'
+alias devbig='srun --mem=20G --gres=gpu:A6000:1 --exclude=locus-1-13 --time=2-00:00:00 --pty /opt/zsh/5.8/bin/zsh'
+function devon {
+    session="workspace"
+    window="dev"
+    tmux has-session -t $session 2>/dev/null
+
+    if [ $? != 0 ]; then
+        tmux new-session -d -s $session -n $window "$(alias devrun | cut -d\' -f2)"
+        # tmux send-keys -t $session:$window "devrun" C-m
+    fi
+    tmux attach-session -t $session
+}
+# alias devon="tmux new-session -s $session \"srun --exclude 'locus-1-[21,25,29]' --mem=20G --gres gpu:1 --time=2-00:00:00 --pty /opt/zsh/5.8/bin/zsh\""
+alias sq='squeue -o "%.9i %.9P %.30j %.8u %.2t %.10M %.6D %.25S %.25e %.10N"'
+alias sqme='squeue -u `whoami`'
+alias sqservers='squeue -u `whoami` -o "%.10N"'
+function watcha {
+   watch -n 0.5 $(alias "$1" | cut -d\' -f2)
+}
+# alias rsyncd="$HOME/.config/rsyncd.sh"
+function sshl {
+    ssh locus-$1-$2 /opt/zsh/5.8/bin/zsh
+}
+
+
+if [[ "$ENV_TYPE" != "docker" ]]; then
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/homebrew/Caskroom/mambaforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/home/ysavani/mambaforge/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/opt/homebrew/Caskroom/mambaforge/base/etc/profile.d/conda.sh" ]; then
-        . "/opt/homebrew/Caskroom/mambaforge/base/etc/profile.d/conda.sh"
+    if [ -f "/home/ysavani/mambaforge/etc/profile.d/conda.sh" ]; then
+        . "/home/ysavani/mambaforge/etc/profile.d/conda.sh"
     else
-        export PATH="/opt/homebrew/Caskroom/mambaforge/base/bin:$PATH"
+        export PATH="/home/ysavani/mambaforge/bin:$PATH"
     fi
 fi
 unset __conda_setup
 
-if [ -f "/opt/homebrew/Caskroom/mambaforge/base/etc/profile.d/mamba.sh" ]; then
-    . "/opt/homebrew/Caskroom/mambaforge/base/etc/profile.d/mamba.sh"
+if [ -f "/home/ysavani/mambaforge/etc/profile.d/mamba.sh" ]; then
+    . "/home/ysavani/mambaforge/etc/profile.d/mamba.sh"
 fi
 # <<< conda initialize <<<
-eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib=$HOME/perl5)" # Brew Perl
+fi
 
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=10000
@@ -156,31 +195,42 @@ function setupenv_macos_arm {
 
 function setupenv_linux_x86_64 {
     mamba install -y \
-        zsh kitty gcc gxx_linux-64 git make cmake nodejs \
+        zsh kitty gcc gxx_linux-64 git git-lfs make cmake nodejs \
         lazygit exa bat ytop nvtop snakeviz fd sd ripgrep \
         jupyter jupyterlab neovim python-lsp-server black \
         flake8 ipython ipdb numpy matplotlib pandas scikit-learn \
         scipy statsmodels scikit-learn-intelex seaborn submitit
-    mamba install -y -c pytorch -c nvidia \
+    mamba install -y -c "nvidia/label/cuda-11.8.0" cuda-toolkit
+    mamba install -y equinox optax diffrax
+    mamba install -y -c pytorch -c nvidia -c conda-forge \
         pytorch torchvision torchaudio pytorch-cuda=11.8 \
-        lightning tensorboard transformers diffusers einops wandb
-    pip3 install --upgrade "jax[cuda11_pip]" \
-        -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
-}
+        lightning tensorboard einops wandb
+    mamba install -y transformers diffusers accelerate
+    # pip3 install --upgrade "jax[cuda11_pip]" \
+    #     -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+} 
 
 function createenv {
+    mamba update -y conda mamba
     mamba create -y -n $1 python=3.10
     mamba activate $1
-    setupenv_macos_arm
+    setupenv_linux_x86_64
 }
 
 function updateall {
-    brew update
-    brew upgrade
-    brew autoremove
-    brew cleanup
+    hostname=$(hostname)
+    if [[ $hostname == locus* ]]; then
+        echo "Updating on locus"
+    else
+        echo "Updating on localgpu"
+        sudo apt update
+        sudo apt upgrade
+        sudo apt autoremove
+        sudo apt autoclean
+    fi
     antigen update
     mamba update -y conda mamba
     mamba clean -y --all
+    # mamba update --all -y -c pytorch -c nvidia -c conda-forge
 }
 

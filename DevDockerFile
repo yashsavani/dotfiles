@@ -1,0 +1,82 @@
+# Use CUDA-enabled base image from NVIDIA
+FROM nvidia/cuda:12.2.0-devel-ubuntu20.04
+
+# Set environment variables
+ENV LANG en_US.UTF-8
+ENV ENV_TYPE=docker
+ENV PATH /home/user/opt/conda/bin:$PATH
+ENV SSH_PORT 22
+
+# Locale setup and installation of essential packages
+RUN apt-get update && \
+    apt-get install -y locales && \
+    locale-gen en_US.UTF-8 && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        sudo perl wget curl git build-essential software-properties-common && \
+    # Add Neovim PPA
+    add-apt-repository -y ppa:neovim-ppa/unstable && \
+    apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+        neovim openssh-client openssh-server \
+        texlive-latex-base texlive-fonts-recommended && \
+    # Cleanup
+    apt-get autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set root password
+RUN echo 'root:pass' | chpasswd && \
+# Configure user and permissions
+    useradd -m user && \
+    echo "user:pass" | chpasswd && \
+    adduser user sudo && \
+    echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+# Set working directory and user
+WORKDIR /home/user
+USER user
+
+# Downlead .config directory
+RUN git clone --depth 1 -b linux_x86_64 https://github.com/yashsavani/dotfiles.git /home/user/.config && \
+    ln -s /home/user/.config/zshrc /home/user/.zshrc && \
+    echo 'export ENV_TYPE=docker' | cat - ~/.zshrc > temp && mv temp ~/.zshrc && \
+# Install Mambaforge for package management
+    wget https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-Linux-x86_64.sh -O mambaforge.sh && \
+    /bin/sh mambaforge.sh -b -p /home/user/opt/conda && \
+    rm mambaforge.sh && \
+    # Initialize conda/mamba
+    echo 'eval "$(/home/user/opt/conda/bin/conda shell.zsh hook)"' >> ~/.zshrc && \
+    mamba update -y conda mamba && \
+    mamba install -y \
+        zsh kitty gcc gh gxx_linux-64 git git-lfs make cmake nodejs \
+        lazygit exa bat bpytop fd sd ripgrep \
+        jupyter neovim python-lsp-server black \
+        flake8 ipython ipdb
+
+# Zsh setup
+SHELL ["opt/conda/bin/zsh", "-c"]
+# Source zshrc to install zsh plugins
+RUN curl -L git.io/antigen > antigen.zsh && \
+    source /home/user/.zshrc && \
+# Neovim setup
+    git clone --depth 1 https://github.com/wbthomason/packer.nvim \
+    /home/user/.local/share/nvim/site/pack/packer/start/packer.nvim && \
+    nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' && \
+# Git configuration
+    git config --global user.name "Yash Savani" && \
+    git config --global user.email "ysavani@cs.cmu.edu"
+
+# SSH setup
+USER root
+RUN chsh -s /home/user/opt/conda/bin/zsh user && \
+    ssh-keygen -A && \
+    mkdir -p /var/run/sshd && \
+    echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config && \
+    echo 'PasswordAuthentication yes' >> /etc/ssh/sshd_config && \
+    echo 'AllowUsers user' >> /etc/ssh/sshd_config && \
+    echo "Port $SSH_PORT" >> /etc/ssh/sshd_config
+
+# Expose SSH port and set default command
+EXPOSE $SSH_PORT
+CMD ["/usr/sbin/sshd", "-D"]
+
